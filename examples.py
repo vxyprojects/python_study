@@ -1,6 +1,7 @@
 from selenium import webdriver
 import time
 import scrapy
+from selenium.webdriver.support.ui import WebDriverWait
 
 # # Chrome의 경우 | 아까 받은 chromedriver의 위치를 지정해준다.
 # # /Users/swlee/Downloads
@@ -31,7 +32,7 @@ while True:
     # ++idx;
     idx = idx+1;
     if idx == 5:
-        print(idx);
+        # print(idx);
         break
 
 
@@ -51,22 +52,48 @@ while True:
 # print(sTest.text);
 
 
-
-all_product_title = driver.find_elements_by_xpath("//strong[@class='tit_channel']")
-for one_title in all_product_title:
-    print(one_title.text)
-
-all_product_reply = driver.find_elements_by_xpath("//strong[@class='_commentCount']")
-for one_title_reply in all_product_reply:
-    if one_title_reply.text == '':
-        print('0');
-    print(one_title_reply.text)
+#
+# all_product_title = driver.find_elements_by_xpath("//strong[@class='tit_channel']")
+# for one_title in all_product_title:
+#     print(one_title.text)
+#
+# all_product_reply = driver.find_elements_by_xpath("//strong[@class='_commentCount']")
+# for one_title_reply in all_product_reply:
+#     if one_title_reply.text == '':
+#         print('0');
+#     print(one_title_reply.text)
 
 
 
 # section _activity 에서 돌아가면서  나와야한다 그래서 댓글이라는 단어가 없으면 0  있으면 댓글 개수를 긁어야한다 .
+# <div data-kant-group="feed.u" class="_activityBody ">
+
+all_product_sectors = driver.find_elements_by_xpath("//div[@class='_activityBody ']")
+
+# print(type(all_product_sectors))
+# print(len(all_product_sectors))
+
+# driver.implicitlywait(10)
+# WebDriverWait(driver, 20)
+# driver.wait = WebDriverWait(driver, 10)
+
+# browser.implicitly_wait(3)
 
 
+# 23개  확실한데
+testidx = 0;
+for one_product_sector in all_product_sectors:
+    # print(one_product_sector)
+    # print('product_name')
+    # tit_channel
+    testidx = testidx+1;
+    product_name = one_product_sector.find_element_by_class_name('tit_channel')
+    print(testidx)
+    is_product_reply = one_product_sector.find_element_by_class_name('_btnViewComments')
+    print(product_name.text)
+    # print(is_product_reply.text)
+
+    # product_reply = one_product_sector.find_element_by_class_name('_commentCount')
 
 
 # count = driver.find_element_by_xpath("//strong[@class='tit_channel']");
