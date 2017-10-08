@@ -12,7 +12,13 @@ from bs4 import BeautifulSoup
 # # /Users/swlee/Downloads
 driver = webdriver.Chrome('/Users/swlee/Downloads/chromedriver')
 
-driver.get("https://story.kakao.com/ch/mom79")
+# driver.get("https://story.kakao.com/ch/mom79")
+# 타이틀을 안적어준다
+# driver.get("https://story.kakao.com/ch/15diet")
+# driver.get("https://story.kakao.com/ch/0u82")
+
+# 타이틀을 안적어주는게 있다
+driver.get("https://story.kakao.com/ch/banzzak2017")
 
 sChannel_name = driver.find_element_by_class_name('_profileName');
 sChannel_id = driver.find_element_by_class_name('user_id');
@@ -38,23 +44,25 @@ while True:
         break
 
 
-
-
 soup = BeautifulSoup(driver.page_source, "html.parser")
 g_data = soup.find_all("div", {"class": "_activityBody "})
 lResult =[];
 for one_g_data in g_data:
     dOneRow = {};
     onerow_title =one_g_data.find_all('strong', attrs={"class": "tit_channel"})
-    onerow_title = onerow_title[0].text.strip()
-
-
+    #todo  15초는  타이틀을 안적어준다 해당의 경우 처리 해줘야한다
+    print(onerow_title)
+    print(len(onerow_title))
+    if len(onerow_title) >0:
+        onerow_title = onerow_title[0].text.strip()
+    else:
+        ##todo  내용에서 첫줄 뽑아오는게 좋다
+        onerow_title = 'no title'
     onerow_reply =one_g_data.find_all('strong', attrs={"class": "_commentCount"})
     onerow_reply = onerow_reply[0].text.strip()
     dOneRow['product_name'] = onerow_title;
     dOneRow['proudct_reply_count'] = len(onerow_reply) == 0 and '0' or onerow_reply;
     lResult.append(dOneRow)
-
 print(lResult);
 
 
