@@ -6,7 +6,9 @@ from selenium.webdriver.support import expected_conditions as EC
 import scrapy
 from selenium.webdriver.support.ui import WebDriverWait
 from bs4 import BeautifulSoup
-
+from openpyxl import Workbook
+import math
+import datetime
 
 # # Chrome의 경우 | 아까 받은 chromedriver의 위치를 지정해준다.
 # # /Users/swlee/Downloads
@@ -51,8 +53,8 @@ for one_g_data in g_data:
     dOneRow = {};
     onerow_title =one_g_data.find_all('strong', attrs={"class": "tit_channel"})
     #todo  15초는  타이틀을 안적어준다 해당의 경우 처리 해줘야한다
-    print(onerow_title)
-    print(len(onerow_title))
+    # print(onerow_title)
+    # print(len(onerow_title))
     if len(onerow_title) >0:
         onerow_title = onerow_title[0].text.strip()
     else:
@@ -63,7 +65,49 @@ for one_g_data in g_data:
     dOneRow['product_name'] = onerow_title;
     dOneRow['proudct_reply_count'] = len(onerow_reply) == 0 and '0' or onerow_reply;
     lResult.append(dOneRow)
-print(lResult);
 
+# print(lResult);
+# 엑셀사용
+book = Workbook()
+sheet = book.active
+iResultIdx = 0;
 
+# 23
+# print(len(lResult));
+# print(lResult);
+iTotalRow = len(lResult);
+sumReply = 0;
+for oneObject in lResult:
+    #row
+    # print(oneObject);
+    iResultIdx = iResultIdx + 1;
+    for oneObjectIdx in oneObject:
+        # print(oneObjectIdx);
+        # print(oneObject[oneObjectIdx]);
+        # print(iResultIdx);
+        # print(oneObject[oneObjectIdx])
+        sheet['A'+str(iResultIdx)] = 'DATE'
+        if oneObjectIdx == 'product_name':
+            sheet['B' + str(iResultIdx)] = oneObject[oneObjectIdx]
+        elif oneObjectIdx == 'proudct_reply_count':
+            sheet['C' + str(iResultIdx)] = oneObject[oneObjectIdx]
+            sumReply = sumReply +int(oneObject[oneObjectIdx]);
+            # oneObject[oneObjectIdx]
 
+# print('sumReply');
+# print(sumReply);
+sheet['A'+str(iResultIdx+1)] = dMainResult['channel_name'];
+sheet['B'+str(iResultIdx+1)] = '댓글평균'
+sheet['C'+str(iResultIdx+1)] = str(math.ceil(sumReply/iTotalRow))
+
+# # sheet['A1'] = DATE
+# # sheet['B1'] = 56
+# # sheet['C1'] = 56
+# # sheet['A2'] = 43
+# now = time.strftime("%x")
+# sheet['A3'] = now
+
+now = datetime.datetime.now()
+nowDate = now.strftime('%Y-%m-%d')
+nowTime = now.strftime('%H:%M:%S')
+book.save(dMainResult['channel_name']+'_'+nowDate+'_'+nowTime+'.xlsx');
