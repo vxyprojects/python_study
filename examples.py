@@ -30,9 +30,6 @@ dMainResult = {};
 dMainResult['channel_name'] = sChannel_name.text;
 dMainResult['channel_id'] = sChannel_id.text;
 
-# print('dMainResult')
-# print(dMainResult)
-
 
 idx = 0;
 while True:
@@ -66,15 +63,11 @@ for one_g_data in g_data:
     dOneRow['proudct_reply_count'] = len(onerow_reply) == 0 and '0' or onerow_reply;
     lResult.append(dOneRow)
 
-# print(lResult);
 # 엑셀사용
 book = Workbook()
 sheet = book.active
 iResultIdx = 0;
 
-# 23
-# print(len(lResult));
-# print(lResult);
 iTotalRow = len(lResult);
 sumReply = 0;
 for oneObject in lResult:
@@ -82,30 +75,17 @@ for oneObject in lResult:
     # print(oneObject);
     iResultIdx = iResultIdx + 1;
     for oneObjectIdx in oneObject:
-        # print(oneObjectIdx);
-        # print(oneObject[oneObjectIdx]);
-        # print(iResultIdx);
-        # print(oneObject[oneObjectIdx])
         sheet['A'+str(iResultIdx)] = 'DATE'
         if oneObjectIdx == 'product_name':
             sheet['B' + str(iResultIdx)] = oneObject[oneObjectIdx]
         elif oneObjectIdx == 'proudct_reply_count':
             sheet['C' + str(iResultIdx)] = oneObject[oneObjectIdx]
             sumReply = sumReply +int(oneObject[oneObjectIdx]);
-            # oneObject[oneObjectIdx]
 
-# print('sumReply');
-# print(sumReply);
 sheet['A'+str(iResultIdx+1)] = dMainResult['channel_name'];
 sheet['B'+str(iResultIdx+1)] = '댓글평균'
 sheet['C'+str(iResultIdx+1)] = str(math.ceil(sumReply/iTotalRow))
 
-# # sheet['A1'] = DATE
-# # sheet['B1'] = 56
-# # sheet['C1'] = 56
-# # sheet['A2'] = 43
-# now = time.strftime("%x")
-# sheet['A3'] = now
 
 now = datetime.datetime.now()
 nowDate = now.strftime('%Y-%m-%d')
