@@ -1,6 +1,8 @@
 
 import os
 os.system('ls')
+os.system('"C:\Program Files\iOpus\iMacros\iMacros.exe" -macro FillForm.iim')
+# os.system('ls')
 # iMacros.exe 찾아서 실행 시키면 어떻게  나오는지 확인 해본다
 
 # import win32com.client

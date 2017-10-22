@@ -3,7 +3,15 @@ import getReplyKakaoSt
 
 # test1 = sinClass.sinWaveForm(amp = 1, endTime = 1)
 # test1.plotWave()
-getReplyKakaoSt.ksCrawling.scrollDown(getReplyKakaoSt.ksCrawling);
+
+#url 돌면서  인스탄스  계속 생성 하면서  처리 해준다
+url = 'https://story.kakao.com/ch/banzzak2017'
+instance = getReplyKakaoSt.ksCrawling(url)
+instance.scrollDown();
+instance.get_set_CrawlingData();
+instance.craeat_excel();
+
+
 # test2 = classTest.sinWaveForm(amp = 1, freq=1, endTime = 5)
 # test3 = classTest.sinWaveForm(amp = 1, freq=4, endTime = 5)
 

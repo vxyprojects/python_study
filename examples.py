@@ -90,4 +90,4 @@ sheet['C'+str(iResultIdx+1)] = str(math.ceil(sumReply/iTotalRow))
 now = datetime.datetime.now()
 nowDate = now.strftime('%Y-%m-%d')
 nowTime = now.strftime('%H:%M:%S')
-book.save(dMainResult['channel_name']+'_'+nowDate+'_'+nowTime+'.xlsx');
+# book.save(dMainResult['channel_name']+'_'+nowDate+'_'+nowTime+'.xlsx');
