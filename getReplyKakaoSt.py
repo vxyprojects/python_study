@@ -19,9 +19,11 @@ class ksCrawling:
         self.d =self.driver;
         #url = https://story.kakao.com/ch/banzzak2017
         self.d.get(url);
+
+        # 갑자기 왜 이게 안먹히는지  이유를 모르겠다 self.d.find_element_by_class_name html 구조가 바뀐건지 머로 막아놓은건지 정확한 이유 아직 모름
         # self.sChannel_name = self.d.find_element_by_class_name('_profileName');
-        self.sChannel_id = self.d.find_element_by_class_name('user_id').text;
-        self.dMainResult['channel_name'] = self.d.find_element_by_class_name('_profileName').text;
+        # self.sChannel_id = self.d.find_element_by_class_name('user_id').text;
+        # self.dMainResult['channel_name'] = self.d.find_element_by_class_name('_profileName').text;
 
 
 
@@ -44,6 +46,9 @@ class ksCrawling:
     def get_set_CrawlingData(self):
         soup = BeautifulSoup(self.d.page_source, "html.parser")
         g_data = soup.find_all("div", {"class": "_activityBody "})
+        self.dMainResult['channel_name'] = soup.find_all("span", {"class": "_profileName"})[0].text.strip()
+        self.dMainResult['channel_id'] = soup.find_all("span", {"class": "user_id"})[0].text.strip()
+
         # print(g_data);
         lResult = [];
         for one_g_data in g_data:

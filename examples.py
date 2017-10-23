@@ -22,13 +22,14 @@ driver = webdriver.Chrome('/Users/swlee/Downloads/chromedriver')
 # 타이틀을 안적어주는게 있다
 driver.get("https://story.kakao.com/ch/banzzak2017")
 
-sChannel_name = driver.find_element_by_class_name('_profileName');
-sChannel_id = driver.find_element_by_class_name('user_id');
+# 이게 안먹히는데  왜 안먹히는지  이유를 모르겠구만
+# sChannel_name = driver.find_element_by_class_name('_profileName');
+# sChannel_id = driver.find_element_by_class_name('user_id');
 
 
 dMainResult = {};
-dMainResult['channel_name'] = sChannel_name.text;
-dMainResult['channel_id'] = sChannel_id.text;
+# dMainResult['channel_name'] = sChannel_name.text;
+# dMainResult['channel_id'] = sChannel_id.text;
 
 
 idx = 0;
@@ -45,6 +46,9 @@ while True:
 
 soup = BeautifulSoup(driver.page_source, "html.parser")
 g_data = soup.find_all("div", {"class": "_activityBody "})
+# dMainResult['channel_name']  = soup.find_all("span", {"class": "_profileName"})[0].text.strip()
+# dMainResult['channel_id']= soup.find_all("span", {"class": "user_id"})[0].text.strip()
+
 lResult =[];
 for one_g_data in g_data:
     dOneRow = {};
@@ -90,4 +94,4 @@ sheet['C'+str(iResultIdx+1)] = str(math.ceil(sumReply/iTotalRow))
 now = datetime.datetime.now()
 nowDate = now.strftime('%Y-%m-%d')
 nowTime = now.strftime('%H:%M:%S')
-# book.save(dMainResult['channel_name']+'_'+nowDate+'_'+nowTime+'.xlsx');
+book.save(dMainResult['channel_name']+'_'+nowDate+'_'+nowTime+'.xlsx');

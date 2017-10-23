@@ -7,20 +7,34 @@ import getReplyKakaoSt
 #url 돌면서  인스탄스  계속 생성 하면서  처리 해준다
 url = 'https://story.kakao.com/ch/banzzak2017'
 url2 = 'https://story.kakao.com/ch/sister7'
-instance = getReplyKakaoSt.ksCrawling(url)
 
-instance.scrollDown();
-instance.get_set_CrawlingData();
-instance.craeat_excel();
+urList = [
+'https://story.kakao.com/ch/banzzak2017',
+'https://story.kakao.com/ch/sister7',
+# 'https://story.kakao.com/ch/15diet', # 여기 예외케이스 있는듯
+'https://story.kakao.com/ch/tomato',
+'https://story.kakao.com/ch/koyalunch',
+'https://story.kakao.com/ch/lovejw',
+];
+
+for oneList in urList:
+    # print(oneList);
+    instance = getReplyKakaoSt.ksCrawling(oneList)
+    instance.scrollDown();
+    instance.get_set_CrawlingData();
+    instance.craeat_excel();
 
 
-
-
-
-instance2 = getReplyKakaoSt.ksCrawling(url2)
-instance2.scrollDown();
-instance2.get_set_CrawlingData();
-instance2.craeat_excel();
+# instance = getReplyKakaoSt.ksCrawling(url)
+# instance.scrollDown();
+# instance.get_set_CrawlingData();
+# instance.craeat_excel();
+#
+#
+# instance2 = getReplyKakaoSt.ksCrawling(url2)
+# instance2.scrollDown();
+# instance2.get_set_CrawlingData();
+# instance2.craeat_excel();
 
 
 # test2 = classTest.sinWaveForm(amp = 1, freq=1, endTime = 5)
