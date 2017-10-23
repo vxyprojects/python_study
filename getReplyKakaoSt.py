@@ -53,7 +53,7 @@ class ksCrawling:
         lResult = [];
         for one_g_data in g_data:
             dOneRow = {};
-            onerow_title = one_g_data.find_all('strong', attrs={"class": "tit_channel"})
+            onerow_title = one_g_data.find_all('strong', attrs={"class": "tit_channel"});
             # todo  15초는  타이틀을 안적어준다 해당의 경우 처리 해줘야한다
             # print(onerow_title)
             # print(len(onerow_title))
@@ -61,7 +61,20 @@ class ksCrawling:
                 onerow_title = onerow_title[0].text.strip()
             else:
                 ##todo  내용에서 첫줄 뽑아오는게 좋다
-                onerow_title = 'no title'
+                # onerow_content ='';
+                onerow_content = one_g_data.find_all('div', attrs={"class": "_content"})
+                # e ='';
+                # br로 자르자 한번 필터해준뒤 br로 짜르자 br로 짜르자
+                # >> > split_jusik = my_jusik.split(' ')
+                # IndexError: list index out of range
+                # 값이 없는게 있는듯?
+                if len(onerow_content)> 0:
+                    # 여기에서 엑셀에 들어갈수없는 값들은  다 지워줘야한다
+                    #in _bind_value raise ValueError(Cannot convert {0!r} to Excel.format(value)) python
+                    onerow_title = onerow_content[0].text.strip()[0:30]
+                    # onerow_title = 'no title'
+                else:
+                    onerow_title = 'no title'
             onerow_reply = one_g_data.find_all('strong', attrs={"class": "_commentCount"})
             onerow_reply = onerow_reply[0].text.strip()
             dOneRow['product_name'] = onerow_title;
@@ -93,7 +106,7 @@ class ksCrawling:
                     sumReply = sumReply + int(oneObject[oneObjectIdx]);
 
 
-        print(self.dMainResult['channel_name']);
+        # print(self.dMainResult['channel_name']);
         sheet['A' + str(iResultIdx + 1)] = self.dMainResult['channel_name'];
         sheet['B' + str(iResultIdx + 1)] = '댓글평균'
         sheet['C' + str(iResultIdx + 1)] = str(math.ceil(sumReply / iTotalRow))
