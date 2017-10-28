@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import getReplyKakaoSt
-
+import re
 # test1 = sinClass.sinWaveForm(amp = 1, endTime = 1)
 # test1.plotWave()
 
@@ -25,12 +25,26 @@ urList = [
 # 'https://story.kakao.com/ch/0u82'
 ];
 
-for oneList in urList:
-    # print(oneList);
-    instance = getReplyKakaoSt.ksCrawling(oneList)
-    instance.scrollDown();
-    instance.get_set_CrawlingData();
-    instance.craeat_excel();
+
+text = "문의사항이 있으면 032-232-3245 으로 연락주시기 바랍니다."
+
+# regex = re.compile(r'(\d{3})-(\d{3}-\d{4})')
+# matchobj = regex.search(text)
+# ^(https?):\/\/goo.gl\/[A-Za-z0-9_\-]
+text1 = "https://goo.gl/YuL4cF"
+regex = re.compile(r'^(https?):\/\/goo.gl\/[A-Za-z0-9_\-]+')
+matchobj = regex.search(text1)
+
+# print(matchobj);
+# print(type(matchobj))
+print(matchobj[0])
+
+
+# for oneList in urList:
+#     instance = getReplyKakaoSt.ksCrawling(oneList)
+#     instance.scrollDown();
+#     instance.get_set_CrawlingData();
+#     instance.craeat_excel();
 
 
 # instance = getReplyKakaoSt.ksCrawling(url)

@@ -9,6 +9,8 @@ from bs4 import BeautifulSoup
 from openpyxl import Workbook
 import math
 import datetime
+import re
+
 
 class ksCrawling:
     def __init__(self, url):
@@ -51,6 +53,7 @@ class ksCrawling:
         # test = self.e.get('https://goo.gl/#analytics/goo.gl/WpGJw7/all_time')
         # paymentPage = BeautifulSoup(self.e.page_source, "html.parser")
         # payLinkCount = paymentPage.find_all('div', attrs={"class": "count"})
+
         g_data = soup.find_all("div", {"class": "_activityBody "})
         self.dMainResult['channel_name'] = soup.find_all("span", {"class": "_profileName"})[0].text.strip()
         self.dMainResult['channel_id'] = soup.find_all("span", {"class": "user_id"})[0].text.strip()
@@ -60,6 +63,13 @@ class ksCrawling:
         for one_g_data in g_data:
             dOneRow = {};
             onerow_title = one_g_data.find_all('strong', attrs={"class": "tit_channel"});
+
+            # text = "문의사항이 있으면 032-232-3245 으로 연락주시기 바랍니다."
+            #
+            # regex = re.compile(r'(\d{3})-(\d{3}-\d{4})')
+            # matchobj = regex.search(text)
+
+
             # todo  15초는  타이틀을 안적어준다 해당의 경우 처리 해줘야한다
             # print(onerow_title)
             # print(len(onerow_title))
@@ -69,6 +79,9 @@ class ksCrawling:
                 ##todo  내용에서 첫줄 뽑아오는게 좋다
                 # onerow_content ='';
                 onerow_content = one_g_data.find_all('div', attrs={"class": "_content"})
+
+                # print(onerow_content)
+
                 # e ='';
                 # br로 자르자 한번 필터해준뒤 br로 짜르자 br로 짜르자
                 # >> > split_jusik = my_jusik.split(' ')
