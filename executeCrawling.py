@@ -15,6 +15,14 @@ urList = [
 'https://story.kakao.com/ch/tomato',
 'https://story.kakao.com/ch/koyalunch',
 'https://story.kakao.com/ch/lovejw',
+'https://story.kakao.com/ch/goldenbaby',
+'https://story.kakao.com/ch/09ssadagu',
+'https://story.kakao.com/ch/dadoogmom',
+'https://story.kakao.com/ch/moms1',
+'https://story.kakao.com/ch/goldd2gt10',
+'https://story.kakao.com/ch/cookiej',
+'https://story.kakao.com/ch/edutrend',
+'https://story.kakao.com/ch/0u82'
 ];
 
 for oneList in urList:

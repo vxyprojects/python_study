@@ -45,6 +45,12 @@ class ksCrawling:
 
     def get_set_CrawlingData(self):
         soup = BeautifulSoup(self.d.page_source, "html.parser")
+
+        # 구매링크
+        # self.e = webdriver.Chrome('/Users/swlee/Downloads/chromedriver');
+        # test = self.e.get('https://goo.gl/#analytics/goo.gl/WpGJw7/all_time')
+        # paymentPage = BeautifulSoup(self.e.page_source, "html.parser")
+        # payLinkCount = paymentPage.find_all('div', attrs={"class": "count"})
         g_data = soup.find_all("div", {"class": "_activityBody "})
         self.dMainResult['channel_name'] = soup.find_all("span", {"class": "_profileName"})[0].text.strip()
         self.dMainResult['channel_id'] = soup.find_all("span", {"class": "user_id"})[0].text.strip()
