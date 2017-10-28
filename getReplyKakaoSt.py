@@ -82,7 +82,11 @@ class ksCrawling:
                 else:
                     onerow_title = 'no title'
             onerow_reply = one_g_data.find_all('strong', attrs={"class": "_commentCount"})
+            #날짜
+            oneRowdate = one_g_data.find_all('a', attrs={"class": "_linkPost"})
+            oneRowdate=oneRowdate[0].text.strip()
             onerow_reply = onerow_reply[0].text.strip()
+            dOneRow['product_reg_date'] = oneRowdate;
             dOneRow['product_name'] = onerow_title;
             dOneRow['proudct_reply_count'] = len(onerow_reply) == 0 and '0' or onerow_reply;
             self.lResult.append(dOneRow)
@@ -104,8 +108,10 @@ class ksCrawling:
             # print(oneObject);
             iResultIdx = iResultIdx + 1;
             for oneObjectIdx in oneObject:
-                sheet['A' + str(iResultIdx)] = 'DATE'
-                if oneObjectIdx == 'product_name':
+                # sheet['A' + str(iResultIdx)] = 'DATE'
+                if oneObjectIdx == 'product_reg_date':
+                    sheet['A' + str(iResultIdx)] = oneObject[oneObjectIdx]
+                elif oneObjectIdx == 'product_name':
                     sheet['B' + str(iResultIdx)] = oneObject[oneObjectIdx]
                 elif oneObjectIdx == 'proudct_reply_count':
                     sheet['C' + str(iResultIdx)] = oneObject[oneObjectIdx]
