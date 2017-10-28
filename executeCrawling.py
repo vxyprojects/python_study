@@ -8,11 +8,14 @@ import re
 url = 'https://story.kakao.com/ch/banzzak2017'
 url2 = 'https://story.kakao.com/ch/sister7'
 
+# 고여사는 아래와 같은 스타일
+# rnakfur.snsform.co.kr
+
 urList = [
-'https://story.kakao.com/ch/banzzak2017',
+# 'https://story.kakao.com/ch/banzzak2017',
 # 'https://story.kakao.com/ch/sister7',
 ## 'https://story.kakao.com/ch/15diet', # 여기 예외케이스 있는듯
-# 'https://story.kakao.com/ch/tomato',
+'https://story.kakao.com/ch/tomato',
 # 'https://story.kakao.com/ch/koyalunch',
 # 'https://story.kakao.com/ch/lovejw',
 # 'https://story.kakao.com/ch/goldenbaby',
@@ -25,26 +28,11 @@ urList = [
 # 'https://story.kakao.com/ch/0u82'
 ];
 
-
-text = "문의사항이 있으면 032-232-3245 으로 연락주시기 바랍니다."
-
-# regex = re.compile(r'(\d{3})-(\d{3}-\d{4})')
-# matchobj = regex.search(text)
-# ^(https?):\/\/goo.gl\/[A-Za-z0-9_\-]
-text1 = "https://goo.gl/YuL4cF"
-regex = re.compile(r'^(https?):\/\/goo.gl\/[A-Za-z0-9_\-]+')
-matchobj = regex.search(text1)
-
-# print(matchobj);
-# print(type(matchobj))
-print(matchobj[0])
-
-
-# for oneList in urList:
-#     instance = getReplyKakaoSt.ksCrawling(oneList)
-#     instance.scrollDown();
-#     instance.get_set_CrawlingData();
-#     instance.craeat_excel();
+for oneList in urList:
+    instance = getReplyKakaoSt.ksCrawling(oneList)
+    instance.scrollDown();
+    instance.get_set_CrawlingData();
+    instance.craeat_excel();
 
 
 # instance = getReplyKakaoSt.ksCrawling(url)
@@ -71,3 +59,14 @@ print(matchobj[0])
 # plt.xlabel('time')
 # plt.ylabel
 # plt.show()
+
+#
+# text1 = "https://goo.gl/YuL4cF"
+#
+# regex = re.compile(r'^(https?):\/\/goo.gl\/[A-Za-z0-9_\-]+')
+# paymentUrl = regex.search(text1)
+#
+#
+# #뒤에 url 빼올수있다.
+# paymentUrl = paymentUrl[0].split('/')
+# print(paymentUrl[3])

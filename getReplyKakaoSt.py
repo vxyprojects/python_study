@@ -64,10 +64,15 @@ class ksCrawling:
             dOneRow = {};
             onerow_title = one_g_data.find_all('strong', attrs={"class": "tit_channel"});
 
-            # text = "문의사항이 있으면 032-232-3245 으로 연락주시기 바랍니다."
-            #
-            # regex = re.compile(r'(\d{3})-(\d{3}-\d{4})')
-            # matchobj = regex.search(text)
+
+            # 예외 케이스가 좀 있을듯 ... 음 고여사 같은 경우 google 이아니라  snsform 이고 등등 몇가지케이스 있는듯 확인후 진행하자 
+            # onerow_content = one_g_data.find_all('div', attrs={"class": "_content"})
+            # print(onerow_content)
+            # regex = re.compile(r'^(https?):\/\/goo.gl\/[A-Za-z0-9_\-]+')
+            # paymentUrl = regex.search(onerow_content)
+            # # # 뒤에 url 빼올수있다.
+            # paymentUrl = paymentUrl[0].split('/')
+            # print(paymentUrl[3])
 
 
             # todo  15초는  타이틀을 안적어준다 해당의 경우 처리 해줘야한다
@@ -78,8 +83,8 @@ class ksCrawling:
             else:
                 ##todo  내용에서 첫줄 뽑아오는게 좋다
                 # onerow_content ='';
-                onerow_content = one_g_data.find_all('div', attrs={"class": "_content"})
 
+                onerow_content = one_g_data.find_all('div', attrs={"class": "_content"})
                 # print(onerow_content)
 
                 # e ='';
