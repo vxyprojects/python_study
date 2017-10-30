@@ -12,20 +12,35 @@ url2 = 'https://story.kakao.com/ch/sister7'
 # rnakfur.snsform.co.kr
 
 urList = [
-# 'https://story.kakao.com/ch/banzzak2017',
-# 'https://story.kakao.com/ch/sister7',
+'https://story.kakao.com/ch/tongtong777',
+'https://story.kakao.com/ch/100jubu',
+'https://story.kakao.com/ch/longkid',
+'https://story.kakao.com/ch/0u82',
+'https://story.kakao.com/ch/goldenbaby',
+'https://story.kakao.com/ch/15diet',
+'https://story.kakao.com/ch/diethunter',
+'https://story.kakao.com/ch/kinglouis',
+'https://story.kakao.com/ch/sky01',
+'https://story.kakao.com/ch/ergolovers',
+'https://story.kakao.com/ch/mom79',
+'https://story.kakao.com/ch/ilike1',
+'https://story.kakao.com/ch/lovejw',
+'https://story.kakao.com/ch/revedebebe',
+'https://story.kakao.com/ch/sister7',
+'https://story.kakao.com/ch/banzzak2017',
+# 'https://story.kakao.com/ch/tongtong777' # 예외케이스있는듯 - 육아달인
 ## 'https://story.kakao.com/ch/15diet', # 여기 예외케이스 있는듯
 'https://story.kakao.com/ch/tomato',
-# 'https://story.kakao.com/ch/koyalunch',
-# 'https://story.kakao.com/ch/lovejw',
-# 'https://story.kakao.com/ch/goldenbaby',
-# 'https://story.kakao.com/ch/09ssadagu',
-# 'https://story.kakao.com/ch/dadoogmom',
-# 'https://story.kakao.com/ch/moms1',
-# 'https://story.kakao.com/ch/goldd2gt10',
-# 'https://story.kakao.com/ch/cookiej',
-# 'https://story.kakao.com/ch/edutrend',
-# 'https://story.kakao.com/ch/0u82'
+'https://story.kakao.com/ch/koyalunch',
+'https://story.kakao.com/ch/lovejw',
+'https://story.kakao.com/ch/goldenbaby',
+'https://story.kakao.com/ch/09ssadagu',
+'https://story.kakao.com/ch/dadoogmom',
+'https://story.kakao.com/ch/moms1',
+'https://story.kakao.com/ch/goldd2gt10',
+'https://story.kakao.com/ch/cookiej',
+'https://story.kakao.com/ch/edutrend',
+'https://story.kakao.com/ch/0u82'
 ];
 
 for oneList in urList:

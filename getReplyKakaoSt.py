@@ -65,7 +65,7 @@ class ksCrawling:
             onerow_title = one_g_data.find_all('strong', attrs={"class": "tit_channel"});
 
 
-            # 예외 케이스가 좀 있을듯 ... 음 고여사 같은 경우 google 이아니라  snsform 이고 등등 몇가지케이스 있는듯 확인후 진행하자 
+            # 예외 케이스가 좀 있을듯 ... 음 고여사 같은 경우 google 이아니라  snsform 이고 등등 몇가지케이스 있는듯 확인후 진행하자
             # onerow_content = one_g_data.find_all('div', attrs={"class": "_content"})
             # print(onerow_content)
             # regex = re.compile(r'^(https?):\/\/goo.gl\/[A-Za-z0-9_\-]+')
@@ -133,10 +133,12 @@ class ksCrawling:
                     sheet['B' + str(iResultIdx)] = oneObject[oneObjectIdx]
                 elif oneObjectIdx == 'proudct_reply_count':
                     sheet['C' + str(iResultIdx)] = oneObject[oneObjectIdx]
-                    sumReply = sumReply + int(oneObject[oneObjectIdx]);
+                    #todo 쉼표가 있으면 쉼표를 없애줘야한다 1,606 --- 이거
+                    # sumReply = sumReply.replace(",", "")
+                    # sumReply = sumReply + int(oneObject[oneObjectIdx].);
+                    sumReply = sumReply + int(oneObject[oneObjectIdx].replace(",", ""));
 
-
-        # print(self.dMainResult['channel_name']);
+        # print(self.dMainResult['channel_name']);ㄴ
         sheet['A' + str(iResultIdx + 1)] = self.dMainResult['channel_name'];
         sheet['B' + str(iResultIdx + 1)] = '댓글평균'
         sheet['C' + str(iResultIdx + 1)] = str(math.ceil(sumReply / iTotalRow))
