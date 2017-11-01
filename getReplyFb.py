@@ -12,7 +12,7 @@ import datetime
 import re
 
 
-class ksCrawling:
+class fbCrawling:
     def __init__(self, url):
         self.dMainResult = {};
         self.lResult = [];
