@@ -50,7 +50,7 @@ class ksCrawling:
     def get_set_CrawlingData(self):
         soup = BeautifulSoup(self.d.page_source, "html.parser")
 
-        # 구매링크
+        # todo 구매링크
         # self.e = webdriver.Chrome('/Users/swlee/Downloads/chromedriver');
         # test = self.e.get('https://goo.gl/#analytics/goo.gl/WpGJw7/all_time')
         # paymentPage = BeautifulSoup(self.e.page_source, "html.parser")
@@ -67,7 +67,7 @@ class ksCrawling:
             onerow_title = one_g_data.find_all('strong', attrs={"class": "tit_channel"});
 
 
-            # 예외 케이스가 좀 있을듯 ... 음 고여사 같은 경우 google 이아니라  snsform 이고 등등 몇가지케이스 있는듯 확인후 진행하자
+            # todo 예외 케이스가 좀 있을듯 ... 음 고여사 같은 경우 google 이아니라  snsform 이고 등등 몇가지케이스 있는듯 확인후 진행하자
             # onerow_content = one_g_data.find_all('div', attrs={"class": "_content"})
             # print(onerow_content)
             # regex = re.compile(r'^(https?):\/\/goo.gl\/[A-Za-z0-9_\-]+')
@@ -77,9 +77,6 @@ class ksCrawling:
             # print(paymentUrl[3])
 
 
-            # todo  15초는  타이틀을 안적어준다 해당의 경우 처리 해줘야한다
-            # print(onerow_title)
-            # print(len(onerow_title))
             if len(onerow_title) > 0:
                 onerow_title = onerow_title[0].text.strip()
             else:
@@ -135,7 +132,7 @@ class ksCrawling:
                     sheet['B' + str(iResultIdx)] = oneObject[oneObjectIdx]
                 elif oneObjectIdx == 'proudct_reply_count':
                     sheet['C' + str(iResultIdx)] = oneObject[oneObjectIdx]
-                    #todo 쉼표가 있으면 쉼표를 없애줘야한다 1,606 --- 이거
+                    # 쉼표가 있으면 쉼표를 제거 1,606 --- 이거
                     # sumReply = sumReply.replace(",", "")
                     # sumReply = sumReply + int(oneObject[oneObjectIdx].);
                     sumReply = sumReply + int(oneObject[oneObjectIdx].replace(",", ""));

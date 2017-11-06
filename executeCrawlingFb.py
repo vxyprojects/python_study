@@ -29,14 +29,7 @@ driver = webdriver.Chrome('/Users/swlee/Downloads/chromedriver');
 
 driver.get(testUrl);
 
-soup = BeautifulSoup(driver.page_source, "html.parser")
 
-
-
-dMainResult['page_name'] = soup.find_all("span", {"class": "_profileName"})[0].text.strip()
-
-
-g_data = soup.find_all("div", {"class": "_1dwg _1w_m"})
 # _33vv span
 # 날짜는  timestampContent 안에 있다
 # _4arz 안에 span  data-hover="tooltip" 얘
@@ -57,3 +50,30 @@ while True:
     if idx == 5:
         # print(idx);
         break
+
+
+soup = BeautifulSoup(driver.page_source, "html.parser")
+# print('soup')
+# print(soup)
+# d = soup.find_all("span", {"class": "_33vv"})
+# print(d)
+# print(d[0].text.strip())
+dMainResult['page_name'] = soup.find_all("span", {"class": "_33vv"})[0].text.strip()
+
+# print(dMainResult['page_name']);
+
+g_data = soup.find_all("div", {"class": "_1dwg _1w_m"})
+
+for one_g_data in g_data:
+    dOneRow = {};
+
+    onerow_date = one_g_data.find_all('span', attrs={"class": "timestampContent"});
+    onerow_date = onerow_date[0].text.strip()
+
+    #todo  one_g_data 에 들어있는 데이타가 아니다  아래에 따로 잇다 클래스 잡아준담에 eq 같은걸로 인덱스로 찾아줘야할듯하다  셀렉터.eq(idx) 이런힉으로
+    onerow_share_count = one_g_data.find_all('a', attrs={"class": "UFIShareLink"});
+    # onerow_share_count = onerow_share_count[0].text.strip()
+    print('onerow_share_count')
+    print(onerow_share_count)
+#     onerow_title = one_g_data.find_all('strong', attrs={"class": "tit_channel"});
+#     onerow_title = onerow_title[0].text.strip()
