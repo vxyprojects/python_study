@@ -62,18 +62,74 @@ dMainResult['page_name'] = soup.find_all("span", {"class": "_33vv"})[0].text.str
 
 # print(dMainResult['page_name']);
 
-g_data = soup.find_all("div", {"class": "_1dwg _1w_m"})
+# g_data = soup.find_all("div", {"class": "_1dwg _1w_m"})
+g_data = soup.find_all("div", {"class": "userContentWrapper"})
 
+# print('len(g_data)')
+# print(len(g_data))
+
+#엑셀을 만들기위한 전체 배열
+aExcelResult =[];
 for one_g_data in g_data:
     dOneRow = {};
-
+    #날짜
     onerow_date = one_g_data.find_all('span', attrs={"class": "timestampContent"});
     onerow_date = onerow_date[0].text.strip()
 
-    #todo  one_g_data 에 들어있는 데이타가 아니다  아래에 따로 잇다 클래스 잡아준담에 eq 같은걸로 인덱스로 찾아줘야할듯하다  셀렉터.eq(idx) 이런힉으로
+    #링크
     onerow_share_count = one_g_data.find_all('a', attrs={"class": "UFIShareLink"});
-    # onerow_share_count = onerow_share_count[0].text.strip()
-    print('onerow_share_count')
-    print(onerow_share_count)
-#     onerow_title = one_g_data.find_all('strong', attrs={"class": "tit_channel"});
-#     onerow_title = onerow_title[0].text.strip()
+
+    if len(onerow_share_count) > 0:
+        onerow_share_count = onerow_share_count[0].text.strip()
+    else :
+        onerow_share_count = '0';
+
+    #계시글 내용
+    user_content = one_g_data.find('div', attrs={"class": "userContent"});
+
+    if user_content is not None:
+        user_content = user_content.findChildren();
+        user_content = user_content[0].text.strip()
+    else:
+        user_content = 'not content';
+
+    #좋아요
+    onerow_like_count = one_g_data.find('div', attrs={"class": "UFILikeSentenceText"});
+    if onerow_like_count is not None:
+        onerow_like_count = onerow_like_count.findChildren();
+        onerow_like_count = onerow_like_count[0].text.strip();
+    else:
+        onerow_like_count = '0';
+    #todo 숫자만 뽑아서 평균치 뽑아낸다 .
+    dOneRow['content_date'] = onerow_date;
+    dOneRow['content'] = user_content;
+    #todo explode 사용
+    dOneRow['content_like_count'] = onerow_like_count;
+    #todo explode 사용 뒤글자 지운다
+    dOneRow['content_share_count'] = onerow_share_count;
+    aExcelResult.append(dOneRow);
+
+    # print('onerow_like_count')
+    # print(onerow_like_count)
+
+
+
+book = Workbook()
+sheet = book.active
+iResultIdx = 0;
+for oneObject in aExcelResult:
+    iResultIdx = iResultIdx + 1;
+    for oneObjectIdx in oneObject:
+        if oneObjectIdx == 'content_date':
+            sheet['A' + str(iResultIdx)] = oneObject[oneObjectIdx]
+        elif oneObjectIdx == 'content':
+            sheet['B' + str(iResultIdx)] = oneObject[oneObjectIdx]
+        elif oneObjectIdx == 'content_like_count':
+            sheet['C' + str(iResultIdx)] = oneObject[oneObjectIdx]
+        elif oneObjectIdx == 'content_share_count':
+            sheet['D' + str(iResultIdx)] = oneObject[oneObjectIdx]
+
+now = datetime.datetime.now()
+nowDate = now.strftime('%Y-%m-%d')
+nowTime = now.strftime('%H:%M:%S')
+book.save(dMainResult['page_name'] + '_' + nowDate + '_' + nowTime + '.xlsx');

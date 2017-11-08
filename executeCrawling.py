@@ -12,7 +12,12 @@ url2 = 'https://story.kakao.com/ch/sister7'
 # rnakfur.snsform.co.kr
 #todo 이상하네 12시에 안돌아가던게 지금은 다돌아가네?  이유를 모르겠음 낼도 12시정도에 돌려보자  안되는지
 urList = [
-'https://story.kakao.com/ch/spsp',
+'https://story.kakao.com/ch/shefsong',#todo 예외케이스 있는듯
+# 'https://story.kakao.com/ch/lemonberbena',
+# 'https://story.kakao.com/ch/mssada',
+# 'https://story.kakao.com/ch/recipeman',
+# # 'https://story.kakao.com/ch/shefsong'
+# 'https://story.kakao.com/ch/spsp',
 # 'https://story.kakao.com/ch/cocojuny',
 # 'https://story.kakao.com/ch/btbox',
 # 'https://story.kakao.com/ch/spsp',

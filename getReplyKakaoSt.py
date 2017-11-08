@@ -68,6 +68,7 @@ class ksCrawling:
 
 
             # todo 예외 케이스가 좀 있을듯 ... 음 고여사 같은 경우 google 이아니라  snsform 이고 등등 몇가지케이스 있는듯 확인후 진행하자
+            # 몇가지 형태 의 케이스가 있는경우 그 형태로 주소를 만들어주는식으로 하자
             # onerow_content = one_g_data.find_all('div', attrs={"class": "_content"})
             # print(onerow_content)
             # regex = re.compile(r'^(https?):\/\/goo.gl\/[A-Za-z0-9_\-]+')
