@@ -10,6 +10,7 @@ url2 = 'https://story.kakao.com/ch/sister7'
 
 # 고여사는 아래와 같은 스타일
 # rnakfur.snsform.co.kr
+#d
 #todo 이상하네 12시에 안돌아가던게 지금은 다돌아가네?  이유를 모르겠음 낼도 12시정도에 돌려보자  안되는지
 urList = [
 'https://story.kakao.com/ch/note123',
