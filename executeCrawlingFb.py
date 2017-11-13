@@ -103,20 +103,43 @@ for one_g_data in g_data:
     #todo 숫자만 뽑아서 평균치 뽑아낸다 .
     dOneRow['content_date'] = onerow_date;
     dOneRow['content'] = user_content;
-    #todo explode 사용
-    dOneRow['content_like_count'] = onerow_like_count;
-    #todo explode 사용 뒤글자 지운다
+
+    #좋아요 수
+    if onerow_like_count is not None and onerow_like_count is not '0':
+        # 0-9
+        regex = re.compile(r'[0-9,]+명이')
+        regexLike = regex.search(onerow_like_count)
+        regexLike = regexLike[0].replace("명이", "");
+        # regexLike = int(regexLike.replace(",", ""));
+    else:
+        regexLike = '0';
+
+    dOneRow['content_like_count'] = regexLike;
+
+    #공유 숫자
+    if onerow_share_count is not '0' and onerow_share_count is not None:
+        onerow_share_count = onerow_share_count.split(' ')[1].replace("회", "")
+        # onerow_share_count = int(onerow_share_count.replace(",", ""));
+    else:
+        onerow_share_count = '0';
+
     dOneRow['content_share_count'] = onerow_share_count;
     aExcelResult.append(dOneRow);
 
-    # print('onerow_like_count')
-    # print(onerow_like_count)
 
 
+
+iTotalRow = len(aExcelResult);
+
+# sumReply = sumReply + int(onerow_share_count.replace(",", ""));
 
 book = Workbook()
 sheet = book.active
 iResultIdx = 0;
+
+sum_content_share_count = 0;
+sum_content_like_count = 0;
+
 for oneObject in aExcelResult:
     iResultIdx = iResultIdx + 1;
     for oneObjectIdx in oneObject:
@@ -126,8 +149,17 @@ for oneObject in aExcelResult:
             sheet['B' + str(iResultIdx)] = oneObject[oneObjectIdx]
         elif oneObjectIdx == 'content_like_count':
             sheet['C' + str(iResultIdx)] = oneObject[oneObjectIdx]
+            sum_content_like_count = sum_content_like_count + int(oneObject[oneObjectIdx].replace(",", ""));
         elif oneObjectIdx == 'content_share_count':
             sheet['D' + str(iResultIdx)] = oneObject[oneObjectIdx]
+            sum_content_share_count = sum_content_share_count + int(oneObject[oneObjectIdx].replace(",", ""));
+
+
+sheet['A' + str(iResultIdx + 1)] = dMainResult['page_name'];
+sheet['B' + str(iResultIdx + 1)] = '좋아요 평균'
+sheet['C' + str(iResultIdx + 1)] = str(math.ceil(sum_content_like_count / iTotalRow))
+sheet['D' + str(iResultIdx + 1)] = '공유하기 평균'
+sheet['E' + str(iResultIdx + 1)] = str(math.ceil(sum_content_share_count / iTotalRow))
 
 now = datetime.datetime.now()
 nowDate = now.strftime('%Y-%m-%d')
