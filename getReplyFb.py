@@ -16,6 +16,7 @@ class fbCrawling:
     def __init__(self, url):
         self.dMainResult = {};
         self.lResult = [];
+        self.aExcelResult = [];
         # url -- 을 계속 적으로 넣어준다.
         self.driver = webdriver.Chrome('/Users/swlee/Downloads/chromedriver');
         self.d =self.driver;
@@ -49,103 +50,100 @@ class fbCrawling:
 
     def get_set_CrawlingData(self):
         soup = BeautifulSoup(self.d.page_source, "html.parser")
+        self.dMainResult['page_name'] = soup.find_all("span", {"class": "_33vv"})[0].text.strip()
+        g_data = soup.find_all("div", {"class": "userContentWrapper"})
 
-        # 구매링크
-        # self.e = webdriver.Chrome('/Users/swlee/Downloads/chromedriver');
-        # test = self.e.get('https://goo.gl/#analytics/goo.gl/WpGJw7/all_time')
-        # paymentPage = BeautifulSoup(self.e.page_source, "html.parser")
-        # payLinkCount = paymentPage.find_all('div', attrs={"class": "count"})
+        # 엑셀을 만들기위한 전체 배열
 
-        g_data = soup.find_all("div", {"class": "_activityBody "})
-        self.dMainResult['channel_name'] = soup.find_all("span", {"class": "_profileName"})[0].text.strip()
-        self.dMainResult['channel_id'] = soup.find_all("span", {"class": "user_id"})[0].text.strip()
-
-        # print(g_data);
-        lResult = [];
         for one_g_data in g_data:
             dOneRow = {};
-            onerow_title = one_g_data.find_all('strong', attrs={"class": "tit_channel"});
+            # 날짜
+            onerow_date = one_g_data.find_all('span', attrs={"class": "timestampContent"});
+            onerow_date = onerow_date[0].text.strip()
 
+            # 링크
+            onerow_share_count = one_g_data.find_all('a', attrs={"class": "UFIShareLink"});
 
-            # 예외 케이스가 좀 있을듯 ... 음 고여사 같은 경우 google 이아니라  snsform 이고 등등 몇가지케이스 있는듯 확인후 진행하자
-            # onerow_content = one_g_data.find_all('div', attrs={"class": "_content"})
-            # print(onerow_content)
-            # regex = re.compile(r'^(https?):\/\/goo.gl\/[A-Za-z0-9_\-]+')
-            # paymentUrl = regex.search(onerow_content)
-            # # # 뒤에 url 빼올수있다.
-            # paymentUrl = paymentUrl[0].split('/')
-            # print(paymentUrl[3])
-
-
-            # todo  15초는  타이틀을 안적어준다 해당의 경우 처리 해줘야한다
-            # print(onerow_title)
-            # print(len(onerow_title))
-            if len(onerow_title) > 0:
-                onerow_title = onerow_title[0].text.strip()
+            if len(onerow_share_count) > 0:
+                onerow_share_count = onerow_share_count[0].text.strip()
             else:
-                ##todo  내용에서 첫줄 뽑아오는게 좋다
-                # onerow_content ='';
+                onerow_share_count = '0';
 
-                onerow_content = one_g_data.find_all('div', attrs={"class": "_content"})
-                # print(onerow_content)
+            # 계시글 내용
+            user_content = one_g_data.find('div', attrs={"class": "userContent"});
 
-                # e ='';
-                # br로 자르자 한번 필터해준뒤 br로 짜르자 br로 짜르자
-                # >> > split_jusik = my_jusik.split(' ')
-                # IndexError: list index out of range
-                # 값이 없는게 있는듯?
-                if len(onerow_content)> 0:
-                    # 여기에서 엑셀에 들어갈수없는 값들은  다 지워줘야한다
-                    #in _bind_value raise ValueError(Cannot convert {0!r} to Excel.format(value)) python
-                    onerow_title = onerow_content[0].text.strip()[0:30]
-                    # onerow_title = 'no title'
-                else:
-                    onerow_title = 'no title'
-            onerow_reply = one_g_data.find_all('strong', attrs={"class": "_commentCount"})
-            #날짜
-            oneRowdate = one_g_data.find_all('a', attrs={"class": "_linkPost"})
-            oneRowdate=oneRowdate[0].text.strip()
-            onerow_reply = onerow_reply[0].text.strip()
-            dOneRow['product_reg_date'] = oneRowdate;
-            dOneRow['product_name'] = onerow_title;
-            dOneRow['proudct_reply_count'] = len(onerow_reply) == 0 and '0' or onerow_reply;
-            self.lResult.append(dOneRow)
+            if user_content is not None:
+                user_content = user_content.findChildren();
+                user_content = user_content[0].text.strip()
+            else:
+                user_content = 'not content';
+
+            # 좋아요
+            onerow_like_count = one_g_data.find('div', attrs={"class": "UFILikeSentenceText"});
+            if onerow_like_count is not None:
+                onerow_like_count = onerow_like_count.findChildren();
+                onerow_like_count = onerow_like_count[0].text.strip();
+            else:
+                onerow_like_count = '0';
+            # todo 숫자만 뽑아서 평균치 뽑아낸다 .
+            dOneRow['content_date'] = onerow_date;
+            dOneRow['content'] = user_content;
+
+            # 좋아요 수
+            if onerow_like_count is not None and onerow_like_count is not '0':
+                # 0-9
+                regex = re.compile(r'[0-9,]+명이')
+                regexLike = regex.search(onerow_like_count)
+                regexLike = regexLike[0].replace("명이", "");
+                # regexLike = int(regexLike.replace(",", ""));
+            else:
+                regexLike = '0';
+
+            dOneRow['content_like_count'] = regexLike;
+
+            # 공유 숫자
+            if onerow_share_count is not '0' and onerow_share_count is not None:
+                onerow_share_count = onerow_share_count.split(' ')[1].replace("회", "")
+                # onerow_share_count = int(onerow_share_count.replace(",", ""));
+            else:
+                onerow_share_count = '0';
+
+            dOneRow['content_share_count'] = onerow_share_count;
+            self.aExcelResult.append(dOneRow);
 
         # print(self.lResult);
         # return  lResult;
             # return self.amp * np.sin(2 * np.pi * self.freq * time + self.startTime) + self.bias
 
     def craeat_excel(self):
+        iTotalRow = len(self.aExcelResult);
         book = Workbook()
         sheet = book.active
         iResultIdx = 0;
+        sum_content_share_count = 0;
+        sum_content_like_count = 0;
 
-        iTotalRow = len(self.lResult);
-        # print(self.lResult);
-        sumReply = 0;
-        for oneObject in self.lResult:
-            # row
-            # print(oneObject);
+        for oneObject in self.aExcelResult:
             iResultIdx = iResultIdx + 1;
             for oneObjectIdx in oneObject:
-                # sheet['A' + str(iResultIdx)] = 'DATE'
-                if oneObjectIdx == 'product_reg_date':
+                if oneObjectIdx == 'content_date':
                     sheet['A' + str(iResultIdx)] = oneObject[oneObjectIdx]
-                elif oneObjectIdx == 'product_name':
+                elif oneObjectIdx == 'content':
                     sheet['B' + str(iResultIdx)] = oneObject[oneObjectIdx]
-                elif oneObjectIdx == 'proudct_reply_count':
+                elif oneObjectIdx == 'content_like_count':
                     sheet['C' + str(iResultIdx)] = oneObject[oneObjectIdx]
-                    #todo 쉼표가 있으면 쉼표를 없애줘야한다 1,606 --- 이거
-                    # sumReply = sumReply.replace(",", "")
-                    # sumReply = sumReply + int(oneObject[oneObjectIdx].);
-                    sumReply = sumReply + int(oneObject[oneObjectIdx].replace(",", ""));
+                    sum_content_like_count = sum_content_like_count + int(oneObject[oneObjectIdx].replace(",", ""));
+                elif oneObjectIdx == 'content_share_count':
+                    sheet['D' + str(iResultIdx)] = oneObject[oneObjectIdx]
+                    sum_content_share_count = sum_content_share_count + int(oneObject[oneObjectIdx].replace(",", ""));
 
-        # print(self.dMainResult['channel_name']);ㄴ
-        sheet['A' + str(iResultIdx + 1)] = self.dMainResult['channel_name'];
-        sheet['B' + str(iResultIdx + 1)] = '댓글평균'
-        sheet['C' + str(iResultIdx + 1)] = str(math.ceil(sumReply / iTotalRow))
+        sheet['A' + str(iResultIdx + 1)] = self.dMainResult['page_name'];
+        sheet['B' + str(iResultIdx + 1)] = '좋아요 평균'
+        sheet['C' + str(iResultIdx + 1)] = str(math.ceil(sum_content_like_count / iTotalRow))
+        sheet['D' + str(iResultIdx + 1)] = '공유하기 평균'
+        sheet['E' + str(iResultIdx + 1)] = str(math.ceil(sum_content_share_count / iTotalRow))
 
         now = datetime.datetime.now()
         nowDate = now.strftime('%Y-%m-%d')
         nowTime = now.strftime('%H:%M:%S')
-        book.save(self.dMainResult['channel_name'] + '_' + nowDate + '_' + nowTime + '.xlsx');
+        book.save(self.dMainResult['page_name'] + '_' + nowDate + '_' + nowTime + '.xlsx');

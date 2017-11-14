@@ -54,20 +54,8 @@ while True:
 
 
 soup = BeautifulSoup(driver.page_source, "html.parser")
-# print('soup')
-# print(soup)
-# d = soup.find_all("span", {"class": "_33vv"})
-# print(d)
-# print(d[0].text.strip())
 dMainResult['page_name'] = soup.find_all("span", {"class": "_33vv"})[0].text.strip()
-
-# print(dMainResult['page_name']);
-
-# g_data = soup.find_all("div", {"class": "_1dwg _1w_m"})
 g_data = soup.find_all("div", {"class": "userContentWrapper"})
-
-# print('len(g_data)')
-# print(len(g_data))
 
 #엑셀을 만들기위한 전체 배열
 aExcelResult =[];
@@ -128,16 +116,10 @@ for one_g_data in g_data:
     aExcelResult.append(dOneRow);
 
 
-
-
 iTotalRow = len(aExcelResult);
-
-# sumReply = sumReply + int(onerow_share_count.replace(",", ""));
-
 book = Workbook()
 sheet = book.active
 iResultIdx = 0;
-
 sum_content_share_count = 0;
 sum_content_like_count = 0;
 
