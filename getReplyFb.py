@@ -50,7 +50,27 @@ class fbCrawling:
 
     def get_set_CrawlingData(self):
         soup = BeautifulSoup(self.d.page_source, "html.parser")
+        # print('len(soup)')
+        # print(len(soup))
+        print(soup.find_all("span", {"class": "_33vv"})[0].text)
+        print(len(soup.find_all("span", {"class": "_33vv"})[0].text))
+
+
+        print(len(soup.find_all("span", {"class": "_33vv"})[0].text))
+        print('len(soup.find_all("span", {"class": "_33vv"})[0].text')
+
+        print(soup.find_all("span", {"class": "_33vv"})[0].text.strip())
+
         self.dMainResult['page_name'] = soup.find_all("span", {"class": "_33vv"})[0].text.strip()
+
+
+        # print('len(self.dMainResult["page_name"])')
+        # print(len(self.dMainResult['page_name'] ))
+        #
+        # print('len(self.dMainResult)')
+        # print(len(self.dMainResult))
+
+
         g_data = soup.find_all("div", {"class": "userContentWrapper"})
 
         # 엑셀을 만들기위한 전체 배열
@@ -71,8 +91,7 @@ class fbCrawling:
 
             # 계시글 내용
             user_content = one_g_data.find('div', attrs={"class": "userContent"});
-
-            if user_content is not None:
+            if user_content is not None and len(user_content) is not 0:
                 user_content = user_content.findChildren();
                 user_content = user_content[0].text.strip()
             else:
@@ -80,7 +99,7 @@ class fbCrawling:
 
             # 좋아요
             onerow_like_count = one_g_data.find('div', attrs={"class": "UFILikeSentenceText"});
-            if onerow_like_count is not None:
+            if onerow_like_count is not None  and len(onerow_like_count) is not 0:
                 onerow_like_count = onerow_like_count.findChildren();
                 onerow_like_count = onerow_like_count[0].text.strip();
             else:
@@ -88,14 +107,18 @@ class fbCrawling:
             # todo 숫자만 뽑아서 평균치 뽑아낸다 .
             dOneRow['content_date'] = onerow_date;
             dOneRow['content'] = user_content;
-
+            #김정문님이 좋아합니다 이렇게 나오는케이스 가있다
             # 좋아요 수
             if onerow_like_count is not None and onerow_like_count is not '0':
                 # 0-9
                 regex = re.compile(r'[0-9,]+명이')
                 regexLike = regex.search(onerow_like_count)
-                regexLike = regexLike[0].replace("명이", "");
-                # regexLike = int(regexLike.replace(",", ""));
+                if regexLike is not None :
+                    regexLike = regexLike[0].replace("명이", "");
+                else:
+                    regexLike ='3';
+
+                    # regexLike = int(regexLike.replace(",", ""));
             else:
                 regexLike = '0';
 

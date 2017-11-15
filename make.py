@@ -7,7 +7,8 @@ setup(
         version = "1.0",
         description = "Parser",
         author = "sh1n2",
-        executables = [Executable("executeCrawlingFb.py")]
+        # executables = [Executable("executeCrawlingFb.py")]
+        executables = [Executable("executeCrawling.py")]
 )
 
 
