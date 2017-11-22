@@ -52,21 +52,17 @@ class fbCrawling:
         soup = BeautifulSoup(self.d.page_source, "html.parser")
         # print('len(soup)')
         # print(len(soup))
-        print(soup.find_all("span", {"class": "_33vv"})[0].text)
-        print(len(soup.find_all("span", {"class": "_33vv"})[0].text))
-
-
-        print(len(soup.find_all("span", {"class": "_33vv"})[0].text))
-        print('len(soup.find_all("span", {"class": "_33vv"})[0].text')
-
-        print(soup.find_all("span", {"class": "_33vv"})[0].text.strip())
+        # print(soup.find_all("span", {"class": "_33vv"})[0].text)
+        # print(len(soup.find_all("span", {"class": "_33vv"})[0].text))
+        # print(len(soup.find_all("span", {"class": "_33vv"})[0].text))
+        # print('len(soup.find_all("span", {"class": "_33vv"})[0].text')
+        # print(soup.find_all("span", {"class": "_33vv"})[0].text.strip())
 
         self.dMainResult['page_name'] = soup.find_all("span", {"class": "_33vv"})[0].text.strip()
 
 
         # print('len(self.dMainResult["page_name"])')
         # print(len(self.dMainResult['page_name'] ))
-        #
         # print('len(self.dMainResult)')
         # print(len(self.dMainResult))
 
@@ -99,7 +95,7 @@ class fbCrawling:
 
             # 좋아요
             onerow_like_count = one_g_data.find('div', attrs={"class": "UFILikeSentenceText"});
-            if onerow_like_count is not None  and len(onerow_like_count) is not 0:
+            if onerow_like_count is not None and len(onerow_like_count) is not 0:
                 onerow_like_count = onerow_like_count.findChildren();
                 onerow_like_count = onerow_like_count[0].text.strip();
             else:

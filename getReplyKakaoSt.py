@@ -133,9 +133,9 @@ class ksCrawling:
                     sheet['B' + str(iResultIdx)] = oneObject[oneObjectIdx]
                 elif oneObjectIdx == 'proudct_reply_count':
                     sheet['C' + str(iResultIdx)] = oneObject[oneObjectIdx]
-                    # 쉼표가 있으면 쉼표를 제거 1,606 --- 이거
-                    # sumReply = sumReply.replace(",", "")
-                    # sumReply = sumReply + int(oneObject[oneObjectIdx].);
+                    if '+' in oneObject[oneObjectIdx]:
+                        oneObject[oneObjectIdx] = oneObject[oneObjectIdx].replace("+", "");
+
                     sumReply = sumReply + int(oneObject[oneObjectIdx].replace(",", ""));
 
         # print(self.dMainResult['channel_name']);ㄴ
