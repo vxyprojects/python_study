@@ -80,6 +80,22 @@ class fbCrawling:
             # 링크
             onerow_share_count = one_g_data.find_all('a', attrs={"class": "UFIShareLink"});
 
+            #뽑음
+            video =one_g_data.find_all('a', attrs={"class": "_5pcq"})
+            print('video');
+            print(video);
+            # print(video['href']);
+            # a_5pcq
+            # video div
+            # if one_g_data.find_all('a', attrs={"class": "_5pcq"}) is not None:
+            #     onerow_video = one_g_data.find_all('a', attrs={"class": "_5pcq"})['src'];
+            #     # onerow_video = one_g_data.find('video')['src'];
+            #     # onerow_video = onerow_video.replace("blob:", "");
+            #     # onerow_video = onerow_video.replace("www.", "m.");
+            #     # dOneRow['video_src'] = onerow_video;
+            #     print('onerow_video')
+            #     print(onerow_video)
+
             if len(onerow_share_count) > 0:
                 onerow_share_count = onerow_share_count[0].text.strip()
             else:
@@ -155,6 +171,8 @@ class fbCrawling:
                 elif oneObjectIdx == 'content_share_count':
                     sheet['D' + str(iResultIdx)] = oneObject[oneObjectIdx]
                     sum_content_share_count = sum_content_share_count + int(oneObject[oneObjectIdx].replace(",", ""));
+                # elif oneObjectIdx == 'video_src':
+                #     sheet['E' + str(iResultIdx)] = oneObject[oneObjectIdx]
 
         sheet['A' + str(iResultIdx + 1)] = self.dMainResult['page_name'];
         sheet['B' + str(iResultIdx + 1)] = '좋아요 평균'
