@@ -55,7 +55,7 @@ for oneList in urList:
     instance = getReplyFb.fbCrawling(oneList)
     #default를 5만큼 스크롤 다운으로 처리
     # instance.scrollDown(120);# 대략 5월달까지 나옴
-    # instance.scrollDown(280);
-    instance.scrollDown(5);
+    instance.scrollDown(280);
+    # instance.scrollDown(5);
     instance.get_set_CrawlingData();
     instance.craeat_excel();

@@ -22,7 +22,7 @@ class fbCrawling:
         self.d =self.driver;
         #url = https://story.kakao.com/ch/banzzak2017
         self.d.get(url);
-
+        self.baseUrl= 'https://m.facebook.com/';
         # 갑자기 왜 이게 안먹히는지  이유를 모르겠다 self.d.find_element_by_class_name html 구조가 바뀐건지 머로 막아놓은건지 정확한 이유 아직 모름
         # self.sChannel_name = self.d.find_element_by_class_name('_profileName');
         # self.sChannel_id = self.d.find_element_by_class_name('user_id').text;
@@ -80,11 +80,15 @@ class fbCrawling:
             # 링크
             onerow_share_count = one_g_data.find_all('a', attrs={"class": "UFIShareLink"});
 
-            #뽑음
-            video =one_g_data.find_all('a', attrs={"class": "_5pcq"})
-            print('video');
-            print(video);
-            # print(video['href']);
+            if one_g_data.find_all('a', attrs={"class": "_5pcq"}) is not None:
+                videourl =one_g_data.find_all('a', attrs={"class": "_5pcq"})
+                makeVideourl = self.baseUrl+videourl[0]['href'];
+                dOneRow['video_src'] = makeVideourl;
+            else:
+                makeVideourl = 'null';
+                dOneRow['video_src'] = makeVideourl;
+
+
             # a_5pcq
             # video div
             # if one_g_data.find_all('a', attrs={"class": "_5pcq"}) is not None:
@@ -119,6 +123,8 @@ class fbCrawling:
             # todo 숫자만 뽑아서 평균치 뽑아낸다 .
             dOneRow['content_date'] = onerow_date;
             dOneRow['content'] = user_content;
+
+            # dOneRow['video_src'] = user_content;
             #김정문님이 좋아합니다 이렇게 나오는케이스 가있다
             # 좋아요 수
             if onerow_like_count is not None and onerow_like_count is not '0':
@@ -171,8 +177,8 @@ class fbCrawling:
                 elif oneObjectIdx == 'content_share_count':
                     sheet['D' + str(iResultIdx)] = oneObject[oneObjectIdx]
                     sum_content_share_count = sum_content_share_count + int(oneObject[oneObjectIdx].replace(",", ""));
-                # elif oneObjectIdx == 'video_src':
-                #     sheet['E' + str(iResultIdx)] = oneObject[oneObjectIdx]
+                elif oneObjectIdx == 'video_src':
+                    sheet['E' + str(iResultIdx)] = oneObject[oneObjectIdx]
 
         sheet['A' + str(iResultIdx + 1)] = self.dMainResult['page_name'];
         sheet['B' + str(iResultIdx + 1)] = '좋아요 평균'
