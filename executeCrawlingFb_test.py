@@ -20,8 +20,17 @@ import getReplyFb
 urList = [
 # 'https://www.facebook.com/dingo.beauty.kr/',
 # 'https://www.facebook.com/doeateveryone/'
-# 'https://www.facebook.com/goodplus/',
+##
+'https://www.facebook.com/mukbanglove/',
+'https://www.facebook.com/goodplus/',
 'https://www.facebook.com/greedplayeat/',
+'https://www.facebook.com/goeatnow/',
+##
+# 'https://www.facebook.com/tastynews1/',
+# 'https://www.facebook.com/noweatgo/',
+# 'https://www.facebook.com/dessert39/',#얘는 아닌듯
+
+
 # 'https://www.facebook.com/dingo.beauty.kr/',
 # 'https://www.facebook.com/doeateveryone/',
 # 'https://www.facebook.com/ummaworld/',
@@ -59,3 +68,4 @@ for oneList in urList:
     # instance.scrollDown(5);
     instance.get_set_CrawlingData();
     instance.craeat_excel();
+    #todo download 함수
