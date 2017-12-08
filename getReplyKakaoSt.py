@@ -10,12 +10,14 @@ from openpyxl import Workbook
 import math
 import datetime
 import re
+import os;
 
 
 class ksCrawling:
-    def __init__(self, url):
+    def __init__(self, url,save_root_dir):
         self.dMainResult = {};
         self.lResult = [];
+        self.save_root_dir = save_root_dir;
         # url -- 을 계속 적으로 넣어준다.
         self.driver = webdriver.Chrome('/Users/swlee/Downloads/chromedriver');
         self.d =self.driver;
@@ -48,6 +50,8 @@ class ksCrawling:
 
 
     def get_set_CrawlingData(self):
+        #html 이 뿌리기전에 아래가 돌아가서 문제
+        time.sleep(7)
         soup = BeautifulSoup(self.d.page_source, "html.parser")
 
         # todo 구매링크
@@ -146,4 +150,11 @@ class ksCrawling:
         now = datetime.datetime.now()
         nowDate = now.strftime('%Y-%m-%d')
         nowTime = now.strftime('%H:%M:%S')
-        book.save(self.dMainResult['channel_name'] + '_' + nowDate + '_' + nowTime + '.xlsx');
+        path = self.save_root_dir + '_' + nowDate;
+        #폴더에 생성
+        if not os.path.isdir(self.save_root_dir+'_'+nowDate):
+            os.mkdir(path);
+
+        book.save(path+'/'+self.dMainResult['channel_name'] + '_' + nowDate + '_' + nowTime + '.xlsx');
+
+

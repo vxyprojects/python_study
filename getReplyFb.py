@@ -10,13 +10,15 @@ from openpyxl import Workbook
 import math
 import datetime
 import re
+import os;
 
 
 class fbCrawling:
-    def __init__(self, url):
+    def __init__(self, url,save_root_dir):
         self.dMainResult = {};
         self.lResult = [];
         self.aExcelResult = [];
+        self.save_root_dir = save_root_dir;
         # url -- 을 계속 적으로 넣어준다.
         self.driver = webdriver.Chrome('/Users/swlee/Downloads/chromedriver');
         self.d =self.driver;
@@ -189,4 +191,8 @@ class fbCrawling:
         now = datetime.datetime.now()
         nowDate = now.strftime('%Y-%m-%d')
         nowTime = now.strftime('%H:%M:%S')
-        book.save(self.dMainResult['page_name'] + '_' + nowDate + '_' + nowTime + '.xlsx');
+        path = self.save_root_dir + '_' + nowDate;
+        # 폴더에 생성
+        if not os.path.isdir(self.save_root_dir + '_' + nowDate):
+            os.mkdir(path);
+        book.save(path+'/'+self.dMainResult['page_name'] + '_' + nowDate + '_' + nowTime + '.xlsx');
