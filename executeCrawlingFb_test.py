@@ -20,9 +20,6 @@ from selenium import webdriver
 from selenium.webdriver import ActionChains
 
 
-#url 돌면서  인스탄스  계속 생성 하면서  처리 해준다
-
-# 고여사는 아래와 같은 스타일
 # rnakfur.snsform.co.kr
 urList = [
 # 'https://www.facebook.com/dingo.beauty.kr/',
@@ -39,6 +36,120 @@ urList = [
 # 'https://www.facebook.com/tastynews1/',
 # 'https://www.facebook.com/noweatgo/',
 # 'https://www.facebook.com/dessert39/',#얘는 아닌듯
+];
+
+save_root_dirname = '/Users/swlee/Documents/python/example/fb'
+
+# 클릭하는것 까지 처리 함
+# url = 'https://m.facebook.com//goeatnow/videos/1761097247520508/'
+url = 'https://m.facebook.com//greedplayeat/videos/1486588684791739/'
+
+driver = webdriver.Chrome('/Users/swlee/Downloads/chromedriver');
+
+
+#todo 상혁이가 했던거 url 뽑아내서 그거 html 에 append 시키고 걔를 클릭 하도록
+#todo 테스트 코드
+#todo 버튼을 만들어줘서 어펜드 시켜놓고선 그 버튼 클릭해서 다운 또는 얼럿뜨는지 확인 그냥 url 고정으로 넣어주고 진행 해봐도 될듯 하다 
+d =driver;
+d.get(url);
+# button = driver.find_elements_by_xpath("//div[@class='widePic']")[0]
+button = driver.find_elements_by_xpath("//div[@class='widePic']")[0]
+
+#todo datastore는 뽑아냄
+soup = BeautifulSoup(d.page_source, "html.parser")
+srcClass = soup.find('div', attrs={"class": "_53mw _4gbu"});
+# print(srcClass[0]);
+src=srcClass['data-store']
+# print('src')
+# print(src)
+
+#todo 정규식으로 url 뽑아내야한다.
+#regex = re.compile(r'/^(http(s?))*$/')
+# \/\/
+# regex = re.compile(r'/^((http(s?))\:\\/\\/)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/')
+# # regex = re.compile(r'[0-9,]+명이')
+# srcUrl = regex.search(src)
+#
+# print('srcUrl')
+# print(srcUrl)
+# "src":
+#,"width"
+
+
+
+
+
+
+
+#이게 먹힘 이유는 정확히 모름
+new_html = "<span class='caps'>Moshi3</span>"
+d.execute_script("""
+var new_html= arguments[0];
+var new_elem = document.createElement('div');
+new_elem.innerHTML += ' ' + new_html;
+document.querySelector('body').appendChild(new_elem);
+""", new_html)
+
+# 아래 처럼 하는건 안먹힘
+# d.execute_script("""
+# var new_html= <span class='caps'>Moshi2</span>;
+# var new_elem = document.createElement('div');
+# new_elem.innerHTML += ' ' + new_html;
+# document.querySelector('body').appendChild(new_elem);
+# """)
+
+
+
+# chrome Save video as
+
+# for oneList in urList:
+#     instance = getReplyFb.fbCrawling(oneList,save_root_dirname)
+#     # default를 5만큼 스크롤 다운으로 처리
+#     # instance.scrollDown(120);# 대략 5월달까지 나옴
+#     # instance.scrollDown(280);
+#     # instance.scrollDown(5);
+#     instance.get_set_CrawlingData();
+#     instance.craeat_excel();
+    #todo download 함수
+
+
+
+
+
+
+
+
+######################test 코드
+
+# js_code = """
+#     var eventName = "keypress";
+#     var keycode = 13;
+#     var evt = document.createEvent("KeyboardEvent");
+#     evt.initKeyboardEvent(eventName, true, true, window, false, false, false, false, keycode, keycode);
+#     this.dispatchEvent(evt);
+# """
+# evaluateJavaScript(js_code)
+
+
+
+
+# # actions.move_to_element(button).context_click().send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.ENTER).perform();
+#
+# actions.move_to_element(button).context_click().send_keys(Keys.DOWN).send_keys(Keys.ENTER).perform();
+# actions.move_to_element(button).context_click().send_keys(Keys.ENTER).perform();
+# actions.move_to_element(button).context_click().send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).build().perform();
+# actions.move_to_element(button).context_click().perform();
+# actions.send_keys(Keys.ARROW_DOWN).perform();
+# actions.send_keys(Keys.ARROW_DOWN).perform();
+# .send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).
+# actions.context_click().send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.ENTER).perform();
+# actions.context_click().send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).perform();
+# actions.move_to_element(button).context_click().send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.ENTER).perform();
+# actions.move_to_element(button).context_click().send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.ENTER).perform();
+# .sendKeys(Keys.ARROW_DOWN)
+# Actions action = new Actions(driver).contextClick(element);
+# action.build().perform();
+
 
 
 # 'https://www.facebook.com/dingo.beauty.kr/',
@@ -65,24 +176,37 @@ urList = [
 # 'https://www.facebook.com/%EB%AA%B0%EB%9E%98%EC%B9%B4%EB%A9%94%EB%9D%BC-1955326091422367/',
 # 'https://www.facebook.com/%EB%AF%B8%EC%B9%9C%EB%93%AF%EC%9D%B4-%EC%9B%83%EA%B2%A8%EC%A4%84%EA%B2%A4%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B%E3%85%8B-1342110162534549/',
 # 'https://www.facebook.com/%EC%97%AC%EC%9E%90%EC%9D%98-%ED%99%94%EC%9E%A5%EB%B9%A8-738653119539669/'
-];
 
-save_root_dirname = '/Users/swlee/Documents/python/example/fb'
-# eys.ARROW_DOWN
 
-# 클릭하는것 까지 처리 함
-url = 'https://m.facebook.com//goeatnow/videos/1761097247520508/'
-# url = 'https://www.google.co.kr/'
 
-driver = webdriver.Chrome('/Users/swlee/Downloads/chromedriver');
-d =driver;
-d.get(url);
-button = driver.find_elements_by_xpath("//div[@class='widePic']")[0]
-# button = driver.find_elements_by_xpath("//div[@class='widePic']")[0]
+#imbeded append js test
+# script = "var new_html = '<span class='caps'>Moshi2</span>'\n"
+# script += "var new_elem = document.createElement('div')\n"
+# script += "new_elem.innerHTML += ' ' + new_html\n"
+# script += "document.querySelector('body').appendChild(new_elem)\n"
+# script2= "var new_elem = document.createElement('div')\n"
+# script3= "new_elem.innerHTML += ' ' + new_html\n"
+# script4= "document.querySelector('body').appendChild(new_elem)\n"
+# print('script')
+# print(script)
+# d.execute_script('var new_html = "<span class="caps">Moshi2</span>";');
+
+
+# d.execute_script('return var new_html = "<span class="caps">Moshi2</span>";');
+# d.execute_script('return var new_html = "<span class="caps">Moshi2</span>";');
+# d.execute_script('var new_html = "<span class="caps">Moshi2</span>""');
+# d.execute_script('new_html = "<span class="caps">Moshi2</span>""');
+# d.execute_script(script2);
+# d.execute_script(script3);
+# d.execute_script(script4);
+
+# videourl =one_g_data.find_all('a', attrs={"class": "_5pcq"})
+# makeVideourl = self.baseUrl+videourl[0]['href'];
+# src = driver.find_elements_by_xpath("//div[@class='_53mw _4gbu']")[0]
 # button = driver.find_elements_by_xpath("//input[@class='gsfi']")[0]
 # button.click()
 # time.sleep(3)
-actions = ActionChains(d)
+# actions = ActionChains(d)
 # actions.send_keys(Keys.NUMPAD1);
 # actions.move_to_element(button).send_keys(Keys.NUMPAD1).perform();
 # actions.move_to_element(button).context_click()
@@ -90,57 +214,10 @@ actions = ActionChains(d)
 # actions.send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.ENTER).perform();
 # actions.send_keys(Keys.DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.ENTER).perform();
 # actions.send_keys(Keys.DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.ENTER).perform();
-actions.move_to_element(button).click().context_click().send_keys(Keys.DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.ENTER).perform();
+# actions.move_to_element(button).click().context_click().send_keys(Keys.DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.ENTER).perform();
 # actions.move_to_element(button).context_click().send_keys(Keys.DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.NUMPAD1).perform();
 # actions.context_click().send_keys(Keys.DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.NUMPAD1).perform();
 # #todo send_keys(가 안먹는다 ...)
 
 # #imbeded js
-# d =driver;
 # d.execute_script('alert("a")');
-
-# js_code = """
-#     var eventName = "keypress";
-#     var keycode = 13;
-#     var evt = document.createEvent("KeyboardEvent");
-#     evt.initKeyboardEvent(eventName, true, true, window, false, false, false, false, keycode, keycode);
-#     this.dispatchEvent(evt);
-# """
-# evaluateJavaScript(js_code)
-
-# from spidermonkey import Runtime
-# rt = Runtime()
-# cx = rt.new_context()
-# result = cx.eval_script("alert('aa')")
-
-
-
-# # actions.move_to_element(button).context_click().send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.ENTER).perform();
-#
-# actions.move_to_element(button).context_click().send_keys(Keys.DOWN).send_keys(Keys.ENTER).perform();
-# actions.move_to_element(button).context_click().send_keys(Keys.ENTER).perform();
-# actions.move_to_element(button).context_click().send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).build().perform();
-# actions.move_to_element(button).context_click().perform();
-# actions.send_keys(Keys.ARROW_DOWN).perform();
-# actions.send_keys(Keys.ARROW_DOWN).perform();
-# .send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).
-# actions.context_click().send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.ENTER).perform();
-# actions.context_click().send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).perform();
-# actions.move_to_element(button).context_click().send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.ENTER).perform();
-# actions.move_to_element(button).context_click().send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.ARROW_DOWN).send_keys(Keys.ENTER).perform();
-# .sendKeys(Keys.ARROW_DOWN)
-# Actions action = new Actions(driver).contextClick(element);
-# action.build().perform();
-
-
-# chrome Save video as
-
-# for oneList in urList:
-#     instance = getReplyFb.fbCrawling(oneList,save_root_dirname)
-#     # default를 5만큼 스크롤 다운으로 처리
-#     # instance.scrollDown(120);# 대략 5월달까지 나옴
-#     # instance.scrollDown(280);
-#     # instance.scrollDown(5);
-#     instance.get_set_CrawlingData();
-#     instance.craeat_excel();
-    #todo download 함수

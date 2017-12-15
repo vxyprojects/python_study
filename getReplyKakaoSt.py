@@ -51,7 +51,9 @@ class ksCrawling:
 
     def get_set_CrawlingData(self):
         #html 이 뿌리기전에 아래가 돌아가서 문제
-        time.sleep(7)
+        time.sleep(2)
+        #핫스팟일때 - 인터넷이 느릴때
+        # time.sleep(7)
         soup = BeautifulSoup(self.d.page_source, "html.parser")
 
         # todo 구매링크
