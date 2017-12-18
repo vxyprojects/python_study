@@ -62,11 +62,21 @@ srcClass = soup.find('div', attrs={"class": "_53mw _4gbu"});
 src=srcClass['data-store']
 # print('src')
 # print(src)
+# https:\/\/video-icn1-1.xx.fbcdn.net\/v\/t42.1790-2\/23572497_1770510766582506_10659924145078272_n.mp4?efg=eyJ2ZW5jb2RlX3RhZyI6InN2ZV9zZCJ9&oh=d0699ba05a8518317f2b03c72ad934fc&oe=5A374A23
+startString = '"src":';
+endString = '"width":';
+startPoint = src.find(startString)
+endPoint = src.find(endString)
 
+srcUrl=src[startPoint+len(startString):endPoint-1]
+srcUrl=srcUrl.replace('"', "")
+srcUrl=srcUrl.replace("\\", "")
+print(srcUrl);
 #todo 정규식으로 url 뽑아내야한다.
 #regex = re.compile(r'/^(http(s?))*$/')
 # \/\/
 # regex = re.compile(r'/^((http(s?))\:\\/\\/)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/')
+# regex = re.compile(r'/^(http(s?))+$/')
 # # regex = re.compile(r'[0-9,]+명이')
 # srcUrl = regex.search(src)
 #
