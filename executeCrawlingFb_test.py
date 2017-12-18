@@ -79,12 +79,6 @@ print(srcUrl);
 # regex = re.compile(r'/^(http(s?))+$/')
 # # regex = re.compile(r'[0-9,]+명이')
 # srcUrl = regex.search(src)
-#
-# print('srcUrl')
-# print(srcUrl)
-# "src":
-#,"width"
-
 
 
 
@@ -92,13 +86,23 @@ print(srcUrl);
 
 
 #이게 먹힘 이유는 정확히 모름
-new_html = "<span class='caps'>Moshi3</span>"
+# new_html = "<span class='caps'>Moshi3</span>"
+new_html = '<a id="a_down" class="a_down" download="" href="'+srcUrl+'">다운</a>'
 d.execute_script("""
 var new_html= arguments[0];
 var new_elem = document.createElement('div');
 new_elem.innerHTML += ' ' + new_html;
 document.querySelector('body').appendChild(new_elem);
 """, new_html)
+d.find_element_by_class_name('a_down').click()
+
+# trigger click lingk todo javascript
+# d.execute_script("""
+# var new_html= arguments[0];
+# var new_elem = document.createElement('div');
+# new_elem.innerHTML += ' ' + new_html;
+# document.querySelector('body').appendChild(new_elem);
+# """, new_html)
 
 # 아래 처럼 하는건 안먹힘
 # d.execute_script("""
