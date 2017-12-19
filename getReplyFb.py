@@ -27,6 +27,7 @@ class fbCrawling:
         # self.driver = webdriver.Chrome('/Users/swlee/Downloads/chromedriver');
         self.driver = webdriver.Chrome('/Users/swlee/Downloads/chromedriver',chrome_options=options);
         self.d =self.driver;
+        self.movie_url=''
         # self.e = self.driver;
         #url = https://story.kakao.com/ch/banzzak2017
         # self.d.get(url);
@@ -190,28 +191,33 @@ class fbCrawling:
                 elif oneObjectIdx == 'content_share_count':
                     sheet['D' + str(iResultIdx)] = oneObject[oneObjectIdx]
                     sum_content_share_count = sum_content_share_count + int(oneObject[oneObjectIdx].replace(",", ""));
-                    if int(oneObject[oneObjectIdx].replace(",", "")) >2:
-                        count_check = int(oneObject[oneObjectIdx].replace(",", ""))
+
+                    # if int(oneObject[oneObjectIdx].replace(",", "")) > 0:
+                    if int(oneObject[oneObjectIdx].replace(",", "")) > -1:
+                        count_check = int(oneObject[oneObjectIdx].replace(",", ""));
                 elif oneObjectIdx == 'video_src':
-                    #todo  d가 10이상만 다운 받는다 .
                     sheet['E' + str(iResultIdx)] = oneObject[oneObjectIdx]
                     # print(oneObject[oneObjectIdx].find('videos'))
-                    # print(oneObject[oneObjectIdx])
                     if oneObject[oneObjectIdx].find('videos') is not -1 :
+                        self.movie_url = oneObject[oneObjectIdx];
                         contain = oneObject[oneObjectIdx].find('videos');
 
-                # if sheet['E' + str(iResultIdx)]
-                # print(sheet['E' + str(iResultIdx)].find('videos'));
-                    print('contain')
-                    print(contain)
-                    print('count_check')
-                    print(count_check)
-                    if contain is not -1 and count_check > 0:
-                        a=0;
-                        # print(sheet['E' + str(iResultIdx)]);
+                #moviecase and want checkcount
+                # print('contain')
+                # print(contain)
+                # print('countcheck')
+                # print(count_check)
+                # if contain is not -1 and count_check > 0:
+                if contain is not -1 and count_check > -1:
+                    # a=0;
+                    print('aaaaaaaaa')
+                    # 해당 케이스인경우는 페이지 만들어서 다운로드
+                    #todo 왜 클릭이 되는지 모르겠음 예전 예제 보면서 차이 알아내야함 
+                    # fbCrawling.get_auto_movie(self)
+                    # print(sheet['E' + str(iResultIdx)]);
 
                 # print(type(sheet['E' + str(iResultIdx)]));
-                #todo 클래스안에서 내부 함수를 사용할때는 아래처럼 이용 해줌
+                #
                 # fbCrawling.get_auto_movie(self)
                 # if sheet['E' + str(iResultIdx)].find('movie') is not -1
 
@@ -231,4 +237,36 @@ class fbCrawling:
         book.save(path+'/'+self.dMainResult['page_name'] + '_' + nowDate + '_' + nowTime + '.xlsx');
 
     def get_auto_movie(self):
-        print(111);
+
+        # print(self.movie_url);
+        # self.movie_url
+        # print(self.movie_url)
+        # print('self.movie_url')
+        self.d.get(self.movie_url);
+        #rending time
+        time.sleep(4);
+        soup = BeautifulSoup(self.d.page_source, "html.parser")
+        srcclass = soup.find('div', attrs={"class": "_53mw _4gbu"});
+        src=srcclass['data-store']
+        # https:\/\/video-icn1-1.xx.fbcdn.net\/v\/t42.1790-2\/23572497_1770510766582506_10659924145078272_n.mp4?efg=eyJ2ZW5jb2RlX3RhZyI6InN2ZV9zZCJ9&oh=d0699ba05a8518317f2b03c72ad934fc&oe=5A374A23
+        start_string = '"src":';
+        end_string = '"width":';
+        start_point = src.find(start_string)
+        end_point = src.find(end_string)
+        #
+        src_url = src[start_point+len(start_string):end_point-1]
+        src_url = src_url.replace('"', "")
+        src_url = src_url.replace("\\", "")
+        print(src_url)
+        new_html = '<a id="a_down" class="a_down" download="" href="'+src_url+'">다운</a>'
+        self.d.execute_script("""
+        var new_html= arguments[0];
+        var new_elem = document.createElement('div');
+        new_elem.innerHTML += ' ' + new_html;
+        document.querySelector('body').appendChild(new_elem);
+        """, new_html)
+        time.sleep(10)
+        # print(self.d.find_element_by_class_name('a_down'));
+        # print(self.d.find_element_by_class_name('a_down').text);
+        # .text
+        # self.d.find_element_by_class_name('a_down').click()

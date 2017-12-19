@@ -25,9 +25,9 @@ urList = [
 # 'https://www.facebook.com/dingo.beauty.kr/',
 # 'https://www.facebook.com/doeateveryone/'
 ##
-'https://www.facebook.com/mukbanglove/',
+# 'https://www.facebook.com/mukbanglove/',
 # 'https://www.facebook.com/goodplus/',
-# 'https://www.facebook.com/greedplayeat/',
+'https://www.facebook.com/greedplayeat/',
 # 'https://www.facebook.com/goeatnow/',
 ##
 #todo test
