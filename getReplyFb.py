@@ -11,7 +11,9 @@ import math
 import datetime
 import re
 import os;
-
+from selenium.webdriver import ActionChains;
+from selenium.webdriver.common.keys import Keys;
+from selenium.webdriver.chrome.options import Options
 
 class fbCrawling:
     def __init__(self, url,save_root_dir):
@@ -19,11 +21,16 @@ class fbCrawling:
         self.lResult = [];
         self.aExcelResult = [];
         self.save_root_dir = save_root_dir;
-        # url -- 을 계속 적으로 넣어준다.
-        self.driver = webdriver.Chrome('/Users/swlee/Downloads/chromedriver');
+        #alert issue
+        options = Options()
+        options.add_argument("--disable-notifications")
+        # self.driver = webdriver.Chrome('/Users/swlee/Downloads/chromedriver');
+        self.driver = webdriver.Chrome('/Users/swlee/Downloads/chromedriver',chrome_options=options);
         self.d =self.driver;
+        # self.e = self.driver;
         #url = https://story.kakao.com/ch/banzzak2017
-        self.d.get(url);
+        # self.d.get(url);
+        self.d.get('https://facebook.com/');
         self.baseUrl= 'https://m.facebook.com/';
         # 갑자기 왜 이게 안먹히는지  이유를 모르겠다 self.d.find_element_by_class_name html 구조가 바뀐건지 머로 막아놓은건지 정확한 이유 아직 모름
         # self.sChannel_name = self.d.find_element_by_class_name('_profileName');
@@ -31,6 +38,23 @@ class fbCrawling:
         # self.dMainResult['channel_name'] = self.d.find_element_by_class_name('_profileName').text;
 
 
+
+    def login(self,id,pssword,url):
+        # 사용자 ID
+        username = self.d.find_element_by_id('email')
+        username.send_keys(id)
+        # 사용자 PASSWORD
+        password = self.d.find_element_by_id('pass')
+        password.send_keys(pssword)
+        # 'loginForm' element id # submit
+        form = self.d.find_element_by_id('login_form')
+        form.submit()
+        time.sleep(2);
+        # time.sleep(3);
+        #get back
+        self.d.get(url);
+        actions = ActionChains(self.d)
+        actions.send_keys(Keys.ESCAPE).perform();
 
 
     def scrollDown(self ,checkIdex):
@@ -52,23 +76,7 @@ class fbCrawling:
 
     def get_set_CrawlingData(self):
         soup = BeautifulSoup(self.d.page_source, "html.parser")
-        # print('len(soup)')
-        # print(len(soup))
-        # print(soup.find_all("span", {"class": "_33vv"})[0].text)
-        # print(len(soup.find_all("span", {"class": "_33vv"})[0].text))
-        # print(len(soup.find_all("span", {"class": "_33vv"})[0].text))
-        # print('len(soup.find_all("span", {"class": "_33vv"})[0].text')
-        # print(soup.find_all("span", {"class": "_33vv"})[0].text.strip())
-
         self.dMainResult['page_name'] = soup.find_all("span", {"class": "_33vv"})[0].text.strip()
-
-
-        # print('len(self.dMainResult["page_name"])')
-        # print(len(self.dMainResult['page_name'] ))
-        # print('len(self.dMainResult)')
-        # print(len(self.dMainResult))
-
-
         g_data = soup.find_all("div", {"class": "userContentWrapper"})
 
         # 엑셀을 만들기위한 전체 배열
@@ -169,6 +177,9 @@ class fbCrawling:
         for oneObject in self.aExcelResult:
             iResultIdx = iResultIdx + 1;
             for oneObjectIdx in oneObject:
+                contain = -1;
+                count_check = 0;
+
                 if oneObjectIdx == 'content_date':
                     sheet['A' + str(iResultIdx)] = oneObject[oneObjectIdx]
                 elif oneObjectIdx == 'content':
@@ -179,8 +190,30 @@ class fbCrawling:
                 elif oneObjectIdx == 'content_share_count':
                     sheet['D' + str(iResultIdx)] = oneObject[oneObjectIdx]
                     sum_content_share_count = sum_content_share_count + int(oneObject[oneObjectIdx].replace(",", ""));
+                    if int(oneObject[oneObjectIdx].replace(",", "")) >2:
+                        count_check = int(oneObject[oneObjectIdx].replace(",", ""))
                 elif oneObjectIdx == 'video_src':
+                    #todo  d가 10이상만 다운 받는다 .
                     sheet['E' + str(iResultIdx)] = oneObject[oneObjectIdx]
+                    # print(oneObject[oneObjectIdx].find('videos'))
+                    # print(oneObject[oneObjectIdx])
+                    if oneObject[oneObjectIdx].find('videos') is not -1 :
+                        contain = oneObject[oneObjectIdx].find('videos');
+
+                # if sheet['E' + str(iResultIdx)]
+                # print(sheet['E' + str(iResultIdx)].find('videos'));
+                    print('contain')
+                    print(contain)
+                    print('count_check')
+                    print(count_check)
+                    if contain is not -1 and count_check > 0:
+                        a=0;
+                        # print(sheet['E' + str(iResultIdx)]);
+
+                # print(type(sheet['E' + str(iResultIdx)]));
+                #todo 클래스안에서 내부 함수를 사용할때는 아래처럼 이용 해줌
+                # fbCrawling.get_auto_movie(self)
+                # if sheet['E' + str(iResultIdx)].find('movie') is not -1
 
         sheet['A' + str(iResultIdx + 1)] = self.dMainResult['page_name'];
         sheet['B' + str(iResultIdx + 1)] = '좋아요 평균'
@@ -196,3 +229,6 @@ class fbCrawling:
         if not os.path.isdir(self.save_root_dir + '_' + nowDate):
             os.mkdir(path);
         book.save(path+'/'+self.dMainResult['page_name'] + '_' + nowDate + '_' + nowTime + '.xlsx');
+
+    def get_auto_movie(self):
+        print(111);
