@@ -16,125 +16,125 @@ url2 = 'https://story.kakao.com/ch/sister7'
 #todo 이상하네 12시에 안돌아가던게 지금은 다돌아가네?  이유를 모르겠음 낼도 12시정도에 돌려보자  안되는지
 #todo divide 제로  sumReply / iTotalRow 각각 변수 다 찍어보자 돌면서 글면 바로 알수있을것이다
 urList = [
-'https://story.kakao.com/ch/tongknsale2', #여기 잘가르쳐줌
-'https://story.kakao.com/ch/timesale24', #와우벤처스
-'https://story.kakao.com/ch/mombanchan',
-'https://story.kakao.com/ch/jjansoonmom',#짠순이엄마
-'https://story.kakao.com/ch/locoduck',#로코그룹
-'https://story.kakao.com/ch/wifecook',# 꿈꾸는 이웃
-#디노맥스 -육아박사
-'https://story.kakao.com/ch/petitc',
-# 육아공식 - 백운
-'https://story.kakao.com/ch/babycare8',
+# 'https://story.kakao.com/ch/timesale24', #와우벤처스
+# 'https://story.kakao.com/ch/tongknsale2', #여기 잘가르쳐줌
+# 'https://story.kakao.com/ch/mombanchan',
+# 'https://story.kakao.com/ch/jjansoonmom',#짠순이엄마
+# 'https://story.kakao.com/ch/locoduck',#로코그룹
+# 'https://story.kakao.com/ch/wifecook',# 꿈꾸는 이웃
+# #디노맥스 -육아박사
+# 'https://story.kakao.com/ch/petitc',
+# # 육아공식 - 백운
+# 'https://story.kakao.com/ch/babycare8',
 # 'https://story.kakao.com/ch/babycare3',
 # 'https://story.kakao.com/ch/mssada',
 # 'https://story.kakao.com/ch/babycare6',
 
 #리얼커머스-다솔 - 쇼핑왕루이
-'https://story.kakao.com/ch/kinglouis',
+# 'https://story.kakao.com/ch/kinglouis',
 
-'https://story.kakao.com/ch/healingtravel7',
-#헬로메이트
-'https://story.kakao.com/ch/100jubu', # ZeroDivisionError: division by zero 처리 필요
-#초록별
-'https://story.kakao.com/ch/ssuujin',
-#귀빈정
-'https://story.kakao.com/ch/wemother23',
-# 'https://story.kakao.com/ch/mylovemother1',
-# 'https://story.kakao.com/ch/wemother1'
-# 'https://story.kakao.com/ch/mothersalrim',
-# 'https://story.kakao.com/ch/motheryori',
-#'https://story.kakao.com/ch/motherchoice',#얘는 좀 다름
-'https://story.kakao.com/ch/motherpyoyori',#위랑 같음
-#위드유
-'https://story.kakao.com/ch/qstory',
-'https://story.kakao.com/ch/yoyoplus',
-'https://story.kakao.com/ch/btime',
-#민커뮤니티
-'https://story.kakao.com/ch/recipeman',
-'https://story.kakao.com/ch/ladies',
-'https://story.kakao.com/ch/powermom7',#에벤에셀이 삼
-'https://story.kakao.com/ch/sptalk',#두루모아가 삼
-#채널인
-'https://story.kakao.com/ch/goldd2gt08',#올리벤더 가 현재 가지고있음
-#꿈꾸는 이웃
-'https://story.kakao.com/ch/yozum',
-'https://story.kakao.com/ch/wifecook',
-'https://story.kakao.com/ch/buyisgood',
-'https://story.kakao.com/ch/mommycooking',
-#맘스홈쇼핑
-'https://story.kakao.com/ch/momlike',
-'https://story.kakao.com/ch/today2121',
+# 'https://story.kakao.com/ch/healingtravel7',
+# #헬로메이트
+# 'https://story.kakao.com/ch/100jubu', # ZeroDivisionError: division by zero 처리 필요
+# #초록별
+# 'https://story.kakao.com/ch/ssuujin',
+# #귀빈정
+# 'https://story.kakao.com/ch/wemother23',
+# # 'https://story.kakao.com/ch/mylovemother1',
+# # 'https://story.kakao.com/ch/wemother1'
+# # 'https://story.kakao.com/ch/mothersalrim',
+# # 'https://story.kakao.com/ch/motheryori',
+# #'https://story.kakao.com/ch/motherchoice',#얘는 좀 다름
+# 'https://story.kakao.com/ch/motherpyoyori',#위랑 같음
+# #위드유
+# 'https://story.kakao.com/ch/qstory',
+# 'https://story.kakao.com/ch/yoyoplus',
+# 'https://story.kakao.com/ch/btime',
+# #민커뮤니티
+# 'https://story.kakao.com/ch/recipeman',
+# 'https://story.kakao.com/ch/ladies',
+# 'https://story.kakao.com/ch/powermom7',#에벤에셀이 삼
+# 'https://story.kakao.com/ch/sptalk',#두루모아가 삼
+# #채널인
+# 'https://story.kakao.com/ch/goldd2gt08',#올리벤더 가 현재 가지고있음
+# #꿈꾸는 이웃
+# 'https://story.kakao.com/ch/yozum',
+# 'https://story.kakao.com/ch/wifecook',
+# 'https://story.kakao.com/ch/buyisgood',
+# 'https://story.kakao.com/ch/mommycooking',
+# #맘스홈쇼핑
+# 'https://story.kakao.com/ch/momlike',
+# 'https://story.kakao.com/ch/today2121',
+# #
+# # #리슨코리아 #todo 팔만 할듯한디 댓글수를 보니깐
+# 'https://story.kakao.com/ch/livingquin',
+# # 'https://story.kakao.com/ch/superwomen',
+# # 'https://story.kakao.com/ch/bravomylife79'
+# #'https://story.kakao.com/ch/homeyunfood',
+# # 'https://story.kakao.com/ch/pleasefood79'
+# #퍼스트앤티
+# 'https://story.kakao.com/ch/showjio',
+# 'https://story.kakao.com/ch/qlalf3',
+# #
+# 'https://story.kakao.com/ch/yoonbebe',
+# 'https://story.kakao.com/ch/bebecare1004',#todo 주목해야함
+# 'https://story.kakao.com/ch/09store',#todo 주목해야함
+# 'https://story.kakao.com/ch/open3685',
+# 'https://story.kakao.com/ch/daebak8381',
+# 'https://story.kakao.com/ch/dokaebi',
+# 'https://story.kakao.com/ch/reallyagirl',#디노맥스
+# 'https://story.kakao.com/ch/decopang', #성분에디터 - 퀸즈 - 꾸미고팡
+# 'https://story.kakao.com/ch/good3049',
+# 'https://story.kakao.com/ch/ping2',
+# 'https://story.kakao.com/ch/5mins',
+# 'https://story.kakao.com/ch/momsi',
+# 'https://story.kakao.com/ch/nmnmfood',
+# 'https://story.kakao.com/ch/receipeunique',
+# 'https://story.kakao.com/ch/recipestore',
+# 'https://story.kakao.com/ch/note123',
 #
-# #리슨코리아 #todo 팔만 할듯한디 댓글수를 보니깐
-'https://story.kakao.com/ch/livingquin',
-# 'https://story.kakao.com/ch/superwomen',
-# 'https://story.kakao.com/ch/bravomylife79'
-#'https://story.kakao.com/ch/homeyunfood',
-# 'https://story.kakao.com/ch/pleasefood79'
-#퍼스트앤티
-'https://story.kakao.com/ch/showjio',
-'https://story.kakao.com/ch/qlalf3',
-#
-'https://story.kakao.com/ch/yoonbebe',
-'https://story.kakao.com/ch/bebecare1004',#todo 주목해야함
-'https://story.kakao.com/ch/09store',#todo 주목해야함
-'https://story.kakao.com/ch/open3685',
-'https://story.kakao.com/ch/daebak8381',
-'https://story.kakao.com/ch/dokaebi',
-'https://story.kakao.com/ch/reallyagirl',#디노맥스
-'https://story.kakao.com/ch/decopang', #성분에디터 - 퀸즈 - 꾸미고팡
-'https://story.kakao.com/ch/good3049',
-'https://story.kakao.com/ch/ping2',
-'https://story.kakao.com/ch/5mins',
-'https://story.kakao.com/ch/momsi',
-'https://story.kakao.com/ch/nmnmfood',
-'https://story.kakao.com/ch/receipeunique',
-'https://story.kakao.com/ch/recipestore',
-'https://story.kakao.com/ch/note123',
-
-# 'https://story.kakao.com/ch/prideofsalim',#- 레몬트리
-'https://story.kakao.com/ch/howtocook',#todo 예외케이스 있는듯 - 레몬트리
-'https://story.kakao.com/ch/shefsong',#todo 예외케이스 있는듯
-'https://story.kakao.com/ch/lemonberbena',
-'https://story.kakao.com/ch/luckybebe',
-'https://story.kakao.com/ch/recipeman',
-'https://story.kakao.com/ch/spsp',
-'https://story.kakao.com/ch/cocojuny',
-'https://story.kakao.com/ch/btbox',
-'https://story.kakao.com/ch/beauty_story',
-'https://story.kakao.com/ch/momn',
-'https://story.kakao.com/ch/hubbytable',
-'https://story.kakao.com/ch/wifecook',
-'https://story.kakao.com/ch/tongtong777',
-'https://story.kakao.com/ch/bongmom',
-'https://story.kakao.com/ch/coco77777',
-'https://story.kakao.com/ch/limstory1',
-'https://story.kakao.com/ch/cocker1102',
-'https://story.kakao.com/ch/tongtong777',
-'https://story.kakao.com/ch/longkid',
-'https://story.kakao.com/ch/0u82',
-'https://story.kakao.com/ch/goldenbaby',# ZeroDivisionError: division by zero 처리 필요
-'https://story.kakao.com/ch/15diet',
-'https://story.kakao.com/ch/diethunter',# 여기서 에러 한번 났었음
-'https://story.kakao.com/ch/sky01',
-'https://story.kakao.com/ch/ergolovers',
+# # 'https://story.kakao.com/ch/prideofsalim',#- 레몬트리
+# 'https://story.kakao.com/ch/howtocook',#todo 예외케이스 있는듯 - 레몬트리
+# 'https://story.kakao.com/ch/shefsong',#todo 예외케이스 있는듯
+# 'https://story.kakao.com/ch/lemonberbena',
+# 'https://story.kakao.com/ch/luckybebe',
+# 'https://story.kakao.com/ch/recipeman',
+# 'https://story.kakao.com/ch/spsp',
+# 'https://story.kakao.com/ch/cocojuny',
+# 'https://story.kakao.com/ch/btbox',
+# 'https://story.kakao.com/ch/beauty_story',
+# 'https://story.kakao.com/ch/momn',
+# 'https://story.kakao.com/ch/hubbytable',
+# 'https://story.kakao.com/ch/wifecook',
+# 'https://story.kakao.com/ch/tongtong777',
+# 'https://story.kakao.com/ch/bongmom',
+# 'https://story.kakao.com/ch/coco77777',
+# 'https://story.kakao.com/ch/limstory1',
+# 'https://story.kakao.com/ch/cocker1102',
+# 'https://story.kakao.com/ch/tongtong777',
+# 'https://story.kakao.com/ch/longkid',
+# 'https://story.kakao.com/ch/0u82',
+# 'https://story.kakao.com/ch/goldenbaby',# ZeroDivisionError: division by zero 처리 필요
+# 'https://story.kakao.com/ch/15diet',
+# 'https://story.kakao.com/ch/diethunter',# 여기서 에러 한번 났었음
+# 'https://story.kakao.com/ch/sky01',
+# 'https://story.kakao.com/ch/ergolovers',
 'https://story.kakao.com/ch/mom79',
-'https://story.kakao.com/ch/ilike1',
-'https://story.kakao.com/ch/lovejw', # 혼자 돌려도 문제
-'https://story.kakao.com/ch/revedebebe',
-'https://story.kakao.com/ch/sister7',
-'https://story.kakao.com/ch/banzzak2017',
-'https://story.kakao.com/ch/tomato',
-'https://story.kakao.com/ch/koyalunch',
-'https://story.kakao.com/ch/09ssadagu',#todo 안돌아감
-'https://story.kakao.com/ch/dadoogmom',
-'https://story.kakao.com/ch/moms1',
-'https://story.kakao.com/ch/goldd2gt10',#todo 안돌아감
-'https://story.kakao.com/ch/cookiej',
-'https://story.kakao.com/ch/edutrend',
-'https://story.kakao.com/ch/0u82',
-'https://story.kakao.com/ch/5baby'
+# 'https://story.kakao.com/ch/ilike1',
+# 'https://story.kakao.com/ch/lovejw', # 혼자 돌려도 문제
+# 'https://story.kakao.com/ch/revedebebe',
+# 'https://story.kakao.com/ch/sister7',
+# 'https://story.kakao.com/ch/banzzak2017',
+# 'https://story.kakao.com/ch/tomato',
+# 'https://story.kakao.com/ch/koyalunch',
+# 'https://story.kakao.com/ch/09ssadagu',#todo 안돌아감
+# 'https://story.kakao.com/ch/dadoogmom',
+# 'https://story.kakao.com/ch/moms1',
+# 'https://story.kakao.com/ch/goldd2gt10',#todo 안돌아감
+# 'https://story.kakao.com/ch/cookiej',
+# 'https://story.kakao.com/ch/edutrend',
+# 'https://story.kakao.com/ch/0u82',
+# 'https://story.kakao.com/ch/5baby'
 # 'https://story.kakao.com/ch/tongtong777' # 예외케이스있는듯 - 육아달인
 ## 'https://story.kakao.com/ch/15diet', # 여기 예외케이스 있는듯
 ];

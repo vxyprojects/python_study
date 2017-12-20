@@ -23,7 +23,7 @@ class ksCrawling:
         self.d =self.driver;
         #url = https://story.kakao.com/ch/banzzak2017
         self.d.get(url);
-
+        self.google_short_url_base = 'https://goo.gl/#analytics/goo.gl/';
         # 갑자기 왜 이게 안먹히는지  이유를 모르겠다 self.d.find_element_by_class_name html 구조가 바뀐건지 머로 막아놓은건지 정확한 이유 아직 모름
         # self.sChannel_name = self.d.find_element_by_class_name('_profileName');
         # self.sChannel_id = self.d.find_element_by_class_name('user_id').text;
@@ -75,13 +75,38 @@ class ksCrawling:
 
             # todo 예외 케이스가 좀 있을듯 ... 음 고여사 같은 경우 google 이아니라  snsform 이고 등등 몇가지케이스 있는듯 확인후 진행하자
             # 몇가지 형태 의 케이스가 있는경우 그 형태로 주소를 만들어주는식으로 하자
-            # onerow_content = one_g_data.find_all('div', attrs={"class": "_content"})
-            # print(onerow_content)
-            # regex = re.compile(r'^(https?):\/\/goo.gl\/[A-Za-z0-9_\-]+')
-            # paymentUrl = regex.search(onerow_content)
-            # # # 뒤에 url 빼올수있다.
-            # paymentUrl = paymentUrl[0].split('/')
-            # print(paymentUrl[3])
+            onerow_content = one_g_data.find_all('div', attrs={"class": "_content"})
+            #todo 우리처림 구글 주소가 여러개 있는케이스땜에 애매한데 아이디어가 필요함
+            #todo 구매링크 작업중
+            payLinkCount = ''
+            # print(onerow_content[0].text.strip()[0:200]);
+            # if onerow_content[0].text.strip()[0:200].find('goo.gl') is not -1:
+            #     #regex = re.compile(r'^(https?):\/\/goo.gl\/[A-Za-z0-9_\-]+')
+            #     # regex = re.compile(r'^(https?:\/\/)goo.gl\/[A-Za-z0-9_\-]+$')
+            #     # regex = re.compile(r'^해피몽키$') #안먹힘
+            #     # regex = re.compile(r'해피몽키') #먹히네
+            #     # regex = re.compile(r'^(https?:\/\/)goo.gl\/[A-Za-z0-9_\-]+')
+            #     # regex = re.compile(r'^(https?):\/\/goo.gl\/([A-Za-z0-9_\-]+)')
+            #     # regex = re.compile(r'^https?:\/\/goo\.gl\/\w{6,}$')
+            #     regex = re.compile(r'(https?:\/\/)goo.gl\/[A-Za-z0-9_\-]+')  # 먹히네
+            #     # regex = re.compile(r'https?:\/\/goo\.gl\/\w{6,}')
+            #     payment_url = regex.search(onerow_content[0].text.strip()[0:200])
+            #     print(payment_url);
+            #     payment_url = payment_url[0].split('/')
+            #     payment_url = payment_url[3];
+            #     make_short_url=self.google_short_url_base + payment_url +'/all_time';
+            #     self.e = webdriver.Chrome('/Users/swlee/Downloads/chromedriver');
+            #     self.e.get(make_short_url)
+            #     time.sleep(2);
+            #     paymentPage = BeautifulSoup(self.e.page_source, "html.parser")
+            #     payLinkCount = paymentPage.find_all('div', attrs={"class": "count"})
+            #     # print(payLinkCount[0].text.strip())
+            #     payLinkCount = payLinkCount[0].text.strip()
+            # else :
+            #     payLinkCount = 'none';
+            #
+            # # print(payLinkCount)
+            # dOneRow['payment_count'] = payLinkCount;
 
 
             if len(onerow_title) > 0:
@@ -127,6 +152,8 @@ class ksCrawling:
         iTotalRow = len(self.lResult);
         # print(self.lResult);
         sumReply = 0;
+        sumPayLink = 0;
+        sumpayLinkNoneCaseIndexCheck = 0;
         for oneObject in self.lResult:
             # row
             # print(oneObject);
@@ -143,11 +170,26 @@ class ksCrawling:
                         oneObject[oneObjectIdx] = oneObject[oneObjectIdx].replace("+", "");
 
                     sumReply = sumReply + int(oneObject[oneObjectIdx].replace(",", ""));
+                #todo 구매링크부분 작업
+                # elif oneObjectIdx == 'payment_count':
+                #     sheet['D' + str(iResultIdx)] = oneObject[oneObjectIdx]
+                #     # sumpayLinkNoneCaseIndexCheck
+                #     if oneObject[oneObjectIdx] is 'none':
+                #         sumpayLinkNoneCaseIndexCheck = sumpayLinkNoneCaseIndexCheck + 1;
+                #     else:
+                #         print(oneObject[oneObjectIdx]);
+                #         sumPayLink = sumPayLink + int(oneObject[oneObjectIdx].replace(",", ""));
+
 
         # print(self.dMainResult['channel_name']);ㄴ
         sheet['A' + str(iResultIdx + 1)] = self.dMainResult['channel_name'];
         sheet['B' + str(iResultIdx + 1)] = '댓글평균'
         sheet['C' + str(iResultIdx + 1)] = str(math.ceil(sumReply / iTotalRow))
+        # todo 구매링크부분 작업
+        # if sumPayLink >0 :
+        #     sheet['D' + str(iResultIdx + 1)] = str(math.ceil(sumPayLink/ iTotalRow-sumpayLinkNoneCaseIndexCheck))
+        # else :
+        #     sheet['D' + str(iResultIdx + 1)] = 'none';
 
         now = datetime.datetime.now()
         nowDate = now.strftime('%Y-%m-%d')
