@@ -18,6 +18,7 @@ from selenium.webdriver.common.keys import Keys
 # import org.openqa.selenium.interactions.Actions;
 from selenium import webdriver
 from selenium.webdriver import ActionChains
+from selenium.webdriver.chrome.options import Options
 
 
 # rnakfur.snsform.co.kr
@@ -40,94 +41,25 @@ urList = [
 
 save_root_dirname = '/Users/swlee/Documents/python/example/fb'
 
-# 클릭하는것 까지 처리 함
-# url = 'https://m.facebook.com//goeatnow/videos/1761097247520508/'
-# url = 'https://m.facebook.com//greedplayeat/videos/1486588684791739/'
-
-driver = webdriver.Chrome('/Users/swlee/Downloads/chromedriver');
-
-#todo 여기 부터 자동 동영상 다운 시작
-#todo 상혁이가 했던거 url 뽑아내서 그거 html 에 append 시키고 걔를 클릭 하도록
-#todo 테스트 코드
-#todo 버튼을 만들어줘서 어펜드 시켜놓고선 그 버튼 클릭해서 다운 또는 얼럿뜨는지 확인 그냥 url 고정으로 넣어주고 진행 해봐도 될듯 하다 
-# d =driver;
-# d.get(url);
-# button = driver.find_elements_by_xpath("//div[@class='widePic']")[0]
-# button = driver.find_elements_by_xpath("//div[@class='widePic']")[0]
-#
-# #todo datastore는 뽑아냄
-# soup = BeautifulSoup(d.page_source, "html.parser")
-# srcClass = soup.find('div', attrs={"class": "_53mw _4gbu"});
-# src=srcClass['data-store']
-# # https:\/\/video-icn1-1.xx.fbcdn.net\/v\/t42.1790-2\/23572497_1770510766582506_10659924145078272_n.mp4?efg=eyJ2ZW5jb2RlX3RhZyI6InN2ZV9zZCJ9&oh=d0699ba05a8518317f2b03c72ad934fc&oe=5A374A23
-# startString = '"src":';
-# endString = '"width":';
-# startPoint = src.find(startString)
-# endPoint = src.find(endString)
-#
-# srcUrl=src[startPoint+len(startString):endPoint-1]
-# srcUrl=srcUrl.replace('"', "")
-# srcUrl=srcUrl.replace("\\", "")
-#todo 정규식으로 url 뽑아내야한다.
-#regex = re.compile(r'/^(http(s?))*$/')
-# \/\/
-# regex = re.compile(r'/^((http(s?))\:\\/\\/)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/')
-# regex = re.compile(r'/^(http(s?))+$/')
-# # regex = re.compile(r'[0-9,]+명이')
-# srcUrl = regex.search(src)
 
 
 
 
-
-
-#이게 먹힘 이유는 정확히 모름
-# new_html = "<span class='caps'>Moshi3</span>"
-# new_html = '<a id="a_down" class="a_down" download="" href="'+srcUrl+'">다운</a>'
-# d.execute_script("""
-# var new_html= arguments[0];
-# var new_elem = document.createElement('div');
-# new_elem.innerHTML += ' ' + new_html;
-# document.querySelector('body').appendChild(new_elem);
-# """, new_html)
-# d.find_element_by_class_name('a_down').click()
-
-# trigger click lingk todo javascript
-# d.execute_script("""
-# var new_html= arguments[0];
-# var new_elem = document.createElement('div');
-# new_elem.innerHTML += ' ' + new_html;
-# document.querySelector('body').appendChild(new_elem);
-# """, new_html)
-
-# 아래 처럼 하는건 안먹힘
-# d.execute_script("""
-# var new_html= <span class='caps'>Moshi2</span>;
-# var new_elem = document.createElement('div');
-# new_elem.innerHTML += ' ' + new_html;
-# document.querySelector('body').appendChild(new_elem);
-# """)
-#todo  여기 까지 자동 다운로드  되게끔
-
-
-#todo 로그인 하는법
-
-id="vxyproject";
-password="vxyproject!";
+# id="vxyproject";
+# password="";
 # chrome Save video as
 for oneList in urList:
     instance = getReplyFb.fbCrawling(oneList,save_root_dirname)
     #login
-    instance.login(id,password,oneList)
+    # instance.login(id,password,oneList)
     #chrome alarm allowed 가 뜨는경우 esc 를 눌르라고 나온다
     # time.sleep(3);
     # default를 5만큼 스크롤 다운으로 처리
     # instance.scrollDown(120);# 대략 5월달까지 나옴
     # instance.scrollDown(280);
-    instance.scrollDown(5);
+    instance.scrollDown(2);
     instance.get_set_CrawlingData();
     instance.craeat_excel();
-    #todo download 함수
 
 
 
@@ -238,3 +170,88 @@ for oneList in urList:
 
 # #imbeded js
 # d.execute_script('alert("a")');
+
+
+
+
+#todo 자동다운로드 기본예제 시작
+#todo 자동다운로드 기본예제
+#todo 자동다운로드 기본예제
+#todo 자동다운로드 기본예제
+# 클릭하는것 까지 처리 함
+# url = 'https://m.facebook.com//goeatnow/videos/1761097247520508/'
+# # url = 'https://m.facebook.com//greedplayeat/videos/1486588684791739/'
+#
+# # driver = webdriver.Chrome('/Users/swlee/Downloads/chromedriver');
+# options = Options()
+# options.add_argument("--disable-notifications")
+# # self.driver = webdriver.Chrome('/Users/swlee/Downloads/chromedriver');
+# driver = webdriver.Chrome('/Users/swlee/Downloads/chromedriver',chrome_options=options);
+
+
+#todo 상혁이가 했던거 url 뽑아내서 그거 html 에 append 시키고 걔를 클릭 하도록
+#todo 테스트 코드
+#todo 버튼을 만들어줘서 어펜드 시켜놓고선 그 버튼 클릭해서 다운 또는 얼럿뜨는지 확인 그냥 url 고정으로 넣어주고 진행 해봐도 될듯 하다
+# d =driver;
+# d.get(url);
+# # button = driver.find_elements_by_xpath("//div[@class='widePic']")[0]
+# # button = driver.find_elements_by_xpath("//div[@class='widePic']")[0]
+# #
+# # #todo datastore는 뽑아냄
+# soup = BeautifulSoup(d.page_source, "html.parser")
+# srcClass = soup.find('div', attrs={"class": "_53mw _4gbu"});
+# src=srcClass['data-store']
+# # https:\/\/video-icn1-1.xx.fbcdn.net\/v\/t42.1790-2\/23572497_1770510766582506_10659924145078272_n.mp4?efg=eyJ2ZW5jb2RlX3RhZyI6InN2ZV9zZCJ9&oh=d0699ba05a8518317f2b03c72ad934fc&oe=5A374A23
+# startString = '"src":';
+# endString = '"width":';
+# startPoint = src.find(startString)
+# endPoint = src.find(endString)
+# #
+# srcUrl=src[startPoint+len(startString):endPoint-1]
+# srcUrl=srcUrl.replace('"', "")
+# srcUrl=srcUrl.replace("\\", "")
+# print(srcUrl);
+# #todo 정규식으로 url 뽑아내야한다.
+# #regex = re.compile(r'/^(http(s?))*$/')
+# # \/\/
+# # regex = re.compile(r'/^((http(s?))\:\\/\\/)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/')
+# # regex = re.compile(r'/^(http(s?))+$/')
+# # # regex = re.compile(r'[0-9,]+명이')
+# # srcUrl = regex.search(src)
+#
+#
+#
+#
+#
+#
+# #이게 먹힘 이유는 정확히 모름
+# # new_html = "<span class='caps'>Moshi3</span>"
+# new_html = '<a id="a_down" class="a_down" download="" href="'+srcUrl+'">다운</a>'
+# d.execute_script("""
+# var new_html= arguments[0];
+# var new_elem = document.createElement('div');
+# new_elem.innerHTML += ' ' + new_html;
+# document.querySelector('body').appendChild(new_elem);
+# """, new_html)
+# d.find_element_by_class_name('a_down').click()
+
+# trigger click lingk todo javascript
+# d.execute_script("""
+# var new_html= arguments[0];
+# var new_elem = document.createElement('div');
+# new_elem.innerHTML += ' ' + new_html;
+# document.querySelector('body').appendChild(new_elem);
+# """, new_html)
+
+# 아래 처럼 하는건 안먹힘
+# d.execute_script("""
+# var new_html= <span class='caps'>Moshi2</span>;
+# var new_elem = document.createElement('div');
+# new_elem.innerHTML += ' ' + new_html;
+# document.querySelector('body').appendChild(new_elem);
+# """)
+# todo 자동다운로드 기본예제 끝
+# todo 자동다운로드 기본예제
+# todo 자동다운로드 기본예제
+# todo 자동다운로드 기본예제
+#todo  여기 까지 자동 다운로드  되게끔 하는부분

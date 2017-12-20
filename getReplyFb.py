@@ -28,15 +28,10 @@ class fbCrawling:
         self.driver = webdriver.Chrome('/Users/swlee/Downloads/chromedriver',chrome_options=options);
         self.d =self.driver;
         self.movie_url=''
-        # self.e = self.driver;
-        #url = https://story.kakao.com/ch/banzzak2017
-        # self.d.get(url);
-        self.d.get('https://facebook.com/');
+        # 로그인을 하니깐 다운로드가 안되네  바꿈
+        self.d.get(url);
+        # self.d.get('https://facebook.com/');
         self.baseUrl= 'https://m.facebook.com/';
-        # 갑자기 왜 이게 안먹히는지  이유를 모르겠다 self.d.find_element_by_class_name html 구조가 바뀐건지 머로 막아놓은건지 정확한 이유 아직 모름
-        # self.sChannel_name = self.d.find_element_by_class_name('_profileName');
-        # self.sChannel_id = self.d.find_element_by_class_name('user_id').text;
-        # self.dMainResult['channel_name'] = self.d.find_element_by_class_name('_profileName').text;
 
 
 
@@ -54,8 +49,8 @@ class fbCrawling:
         # time.sleep(3);
         #get back
         self.d.get(url);
-        actions = ActionChains(self.d)
-        actions.send_keys(Keys.ESCAPE).perform();
+        # actions = ActionChains(self.d)
+        # actions.send_keys(Keys.ESCAPE).perform();
 
 
     def scrollDown(self ,checkIdex):
@@ -98,18 +93,6 @@ class fbCrawling:
             else:
                 makeVideourl = 'null';
                 dOneRow['video_src'] = makeVideourl;
-
-
-            # a_5pcq
-            # video div
-            # if one_g_data.find_all('a', attrs={"class": "_5pcq"}) is not None:
-            #     onerow_video = one_g_data.find_all('a', attrs={"class": "_5pcq"})['src'];
-            #     # onerow_video = one_g_data.find('video')['src'];
-            #     # onerow_video = onerow_video.replace("blob:", "");
-            #     # onerow_video = onerow_video.replace("www.", "m.");
-            #     # dOneRow['video_src'] = onerow_video;
-            #     print('onerow_video')
-            #     print(onerow_video)
 
             if len(onerow_share_count) > 0:
                 onerow_share_count = onerow_share_count[0].text.strip()
@@ -200,26 +183,17 @@ class fbCrawling:
                     # print(oneObject[oneObjectIdx].find('videos'))
                     if oneObject[oneObjectIdx].find('videos') is not -1 :
                         self.movie_url = oneObject[oneObjectIdx];
+                        # print(self.movie_url)
                         contain = oneObject[oneObjectIdx].find('videos');
 
                 #moviecase and want checkcount
-                # print('contain')
-                # print(contain)
-                # print('countcheck')
-                # print(count_check)
                 # if contain is not -1 and count_check > 0:
                 if contain is not -1 and count_check > -1:
                     # a=0;
-                    print('aaaaaaaaa')
+                    # print('aaaaaaaaa')
                     # 해당 케이스인경우는 페이지 만들어서 다운로드
-                    #todo 왜 클릭이 되는지 모르겠음 예전 예제 보면서 차이 알아내야함 
-                    # fbCrawling.get_auto_movie(self)
-                    # print(sheet['E' + str(iResultIdx)]);
-
-                # print(type(sheet['E' + str(iResultIdx)]));
-                #
-                # fbCrawling.get_auto_movie(self)
-                # if sheet['E' + str(iResultIdx)].find('movie') is not -1
+                    #todo 왜 클릭이 되는지 모르겠음 예전 예제 보면서 차이 알아내야함
+                    fbCrawling.get_auto_movie(self)
 
         sheet['A' + str(iResultIdx + 1)] = self.dMainResult['page_name'];
         sheet['B' + str(iResultIdx + 1)] = '좋아요 평균'
@@ -238,11 +212,10 @@ class fbCrawling:
 
     def get_auto_movie(self):
 
-        # print(self.movie_url);
-        # self.movie_url
-        # print(self.movie_url)
-        # print('self.movie_url')
+        print(self.movie_url);
+        #로그인을 하니깐 다운로드가 안되네
         self.d.get(self.movie_url);
+        # self.d.get('https://m.facebook.com//goeatnow/videos/1761097247520508/');
         #rending time
         time.sleep(4);
         soup = BeautifulSoup(self.d.page_source, "html.parser")
@@ -269,4 +242,4 @@ class fbCrawling:
         # print(self.d.find_element_by_class_name('a_down'));
         # print(self.d.find_element_by_class_name('a_down').text);
         # .text
-        # self.d.find_element_by_class_name('a_down').click()
+        self.d.find_element_by_class_name('a_down').click()
