@@ -80,33 +80,68 @@ class ksCrawling:
             #todo 구매링크 작업중
             payLinkCount = ''
             # print(onerow_content[0].text.strip()[0:200]);
-            # if onerow_content[0].text.strip()[0:200].find('goo.gl') is not -1:
-            #     #regex = re.compile(r'^(https?):\/\/goo.gl\/[A-Za-z0-9_\-]+')
-            #     # regex = re.compile(r'^(https?:\/\/)goo.gl\/[A-Za-z0-9_\-]+$')
-            #     # regex = re.compile(r'^해피몽키$') #안먹힘
-            #     # regex = re.compile(r'해피몽키') #먹히네
-            #     # regex = re.compile(r'^(https?:\/\/)goo.gl\/[A-Za-z0-9_\-]+')
-            #     # regex = re.compile(r'^(https?):\/\/goo.gl\/([A-Za-z0-9_\-]+)')
-            #     # regex = re.compile(r'^https?:\/\/goo\.gl\/\w{6,}$')
-            #     regex = re.compile(r'(https?:\/\/)goo.gl\/[A-Za-z0-9_\-]+')  # 먹히네
-            #     # regex = re.compile(r'https?:\/\/goo\.gl\/\w{6,}')
-            #     payment_url = regex.search(onerow_content[0].text.strip()[0:200])
-            #     print(payment_url);
-            #     payment_url = payment_url[0].split('/')
-            #     payment_url = payment_url[3];
-            #     make_short_url=self.google_short_url_base + payment_url +'/all_time';
-            #     self.e = webdriver.Chrome('/Users/swlee/Downloads/chromedriver');
-            #     self.e.get(make_short_url)
-            #     time.sleep(2);
-            #     paymentPage = BeautifulSoup(self.e.page_source, "html.parser")
-            #     payLinkCount = paymentPage.find_all('div', attrs={"class": "count"})
-            #     # print(payLinkCount[0].text.strip())
-            #     payLinkCount = payLinkCount[0].text.strip()
-            # else :
-            #     payLinkCount = 'none';
-            #
-            # # print(payLinkCount)
-            # dOneRow['payment_count'] = payLinkCount;
+            # print(onerow_content[0].text.strip()[0:150]);
+            # print(onerow_content[0].text.strip()[0:300]);
+            #원래는 100으로함
+            if onerow_content[0].text.strip()[0:300].find('goo.gl') is not -1:
+                #todo https:// 가 있는케이스
+                #todo    없는 케이스
+                #regex = re.compile(r'^(https?):\/\/goo.gl\/[A-Za-z0-9_\-]+')
+                # regex = re.compile(r'^(https?:\/\/)goo.gl\/[A-Za-z0-9_\-]+$')
+                # regex = re.compile(r'^해피몽키$') #안먹힘
+                # regex = re.compile(r'해피몽키') #먹히네
+                # regex = re.compile(r'^(https?:\/\/)goo.gl\/[A-Za-z0-9_\-]+')
+                # regex = re.compile(r'^(https?):\/\/goo.gl\/([A-Za-z0-9_\-]+)')
+                # regex = re.compile(r'^https?:\/\/goo\.gl\/\w{6,}$')
+                # regex = re.compile(r'(https?:\/\/)goo.gl\/[A-Za-z0-9_\-]+')  # 먹히네
+                # regex = re.compile(r'https?:\/\/goo\.gl\/\w{6,}')
+                regex = re.compile(r'goo.gl\/[A-Za-z0-9_\-]+')  # 먹히네
+                payment_url = regex.search(onerow_content[0].text.strip()[0:250])
+                # print(payment_url);
+                if payment_url is not None:
+                    payment_url=payment_url[0].replace("https", "")
+                    payment_url=payment_url.replace("http", "")
+                    # payment_url = payment_url[0].split('/')
+                    payment_url = payment_url.split('/')
+                    payment_url = payment_url[1];
+                #todo 붙어서 나오는케이스  뒷부분에서 http 나 goo 가있는케이스들은 지워주면?
+                # if payment_url.find('goo') is not -1:
+                #     payment_url= .replace("http", "")
+                # payment_url.find('htt')
+                # print(payment_url)
+                # print(onerow_content[0].text.strip()[0:150].find('http'));
+                # if onerow_content[0].text.strip()[0:150].find('http') is -1:
+                #     regex = re.compile(r'goo.gl\/[A-Za-z0-9_\-]+')  # 먹히네
+                #     payment_url = regex.search(onerow_content[0].text.strip()[0:150])
+                #     print(payment_url);
+                #     payment_url = payment_url[0].split('/')
+                #     print(payment_url);
+                #     payment_url = payment_url[1];
+                # else:
+                #     regex = re.compile(r'(https?:\/\/)goo.gl\/[A-Za-z0-9_\-]+')  # 먹히네
+                #     payment_url = regex.search(onerow_content[0].text.strip()[0:150])
+                #     # print(payment_url);
+                #     payment_url = payment_url[0].split('/')
+                #     # print(payment_url);
+                #     payment_url = payment_url[3];
+                    make_short_url=self.google_short_url_base + payment_url +'/all_time';
+                    self.e = webdriver.Chrome('/Users/swlee/Downloads/chromedriver');
+                    self.e.get(make_short_url)
+                    time.sleep(2);
+                    paymentPage = BeautifulSoup(self.e.page_source, "html.parser")
+                    payLinkCount = paymentPage.find_all('div', attrs={"class": "count"})
+                # print(payLinkCount);
+                # print();
+                # print(payLinkCount[0].text.strip())
+                if len(payLinkCount) >0 :
+                    payLinkCount = payLinkCount[0].text.strip()
+                else :
+                    payLinkCount = 'notaccurate';
+            else :
+                payLinkCount = 'none';
+
+            # print(payLinkCount)
+            dOneRow['payment_count'] = payLinkCount;
 
 
             if len(onerow_title) > 0:
@@ -171,14 +206,16 @@ class ksCrawling:
 
                     sumReply = sumReply + int(oneObject[oneObjectIdx].replace(",", ""));
                 #todo 구매링크부분 작업
-                # elif oneObjectIdx == 'payment_count':
-                #     sheet['D' + str(iResultIdx)] = oneObject[oneObjectIdx]
-                #     # sumpayLinkNoneCaseIndexCheck
-                #     if oneObject[oneObjectIdx] is 'none':
-                #         sumpayLinkNoneCaseIndexCheck = sumpayLinkNoneCaseIndexCheck + 1;
-                #     else:
-                #         print(oneObject[oneObjectIdx]);
-                #         sumPayLink = sumPayLink + int(oneObject[oneObjectIdx].replace(",", ""));
+                elif oneObjectIdx == 'payment_count':
+                    sheet['D' + str(iResultIdx)] = oneObject[oneObjectIdx]
+                    #todo oneObject[oneObjectIdx] is 'notaccurate' 한글로 정해놓으면 false 떨어짐
+                    # sumpayLinkNoneCaseIndexCheck
+                    if oneObject[oneObjectIdx] is 'none' or oneObject[oneObjectIdx] is 'notaccurate':
+                        print('here')
+                        sumpayLinkNoneCaseIndexCheck = sumpayLinkNoneCaseIndexCheck + 1;
+                    else:
+                        # print(oneObject[oneObjectIdx]);
+                        sumPayLink = sumPayLink + int(oneObject[oneObjectIdx].replace(",", ""));
 
 
         # print(self.dMainResult['channel_name']);ㄴ
@@ -186,10 +223,10 @@ class ksCrawling:
         sheet['B' + str(iResultIdx + 1)] = '댓글평균'
         sheet['C' + str(iResultIdx + 1)] = str(math.ceil(sumReply / iTotalRow))
         # todo 구매링크부분 작업
-        # if sumPayLink >0 :
-        #     sheet['D' + str(iResultIdx + 1)] = str(math.ceil(sumPayLink/ iTotalRow-sumpayLinkNoneCaseIndexCheck))
-        # else :
-        #     sheet['D' + str(iResultIdx + 1)] = 'none';
+        if sumPayLink >0 :
+            sheet['D' + str(iResultIdx + 1)] = str(math.ceil(sumPayLink/ iTotalRow-sumpayLinkNoneCaseIndexCheck))
+        else :
+            sheet['D' + str(iResultIdx + 1)] = 'none';
 
         now = datetime.datetime.now()
         nowDate = now.strftime('%Y-%m-%d')

@@ -16,27 +16,28 @@ url2 = 'https://story.kakao.com/ch/sister7'
 #todo 이상하네 12시에 안돌아가던게 지금은 다돌아가네?  이유를 모르겠음 낼도 12시정도에 돌려보자  안되는지
 #todo divide 제로  sumReply / iTotalRow 각각 변수 다 찍어보자 돌면서 글면 바로 알수있을것이다
 urList = [
+# 'https://story.kakao.com/ch/ggogga7', #광주업체
 # 'https://story.kakao.com/ch/timesale24', #와우벤처스
 # 'https://story.kakao.com/ch/tongknsale2', #여기 잘가르쳐줌
 # 'https://story.kakao.com/ch/mombanchan',
 # 'https://story.kakao.com/ch/jjansoonmom',#짠순이엄마
 # 'https://story.kakao.com/ch/locoduck',#로코그룹
 # 'https://story.kakao.com/ch/wifecook',# 꿈꾸는 이웃
-# #디노맥스 -육아박사
+# # 디노맥스 -육아박사
 # 'https://story.kakao.com/ch/petitc',
 # # 육아공식 - 백운
 # 'https://story.kakao.com/ch/babycare8',
 # 'https://story.kakao.com/ch/babycare3',
 # 'https://story.kakao.com/ch/mssada',
 # 'https://story.kakao.com/ch/babycare6',
-
-#리얼커머스-다솔 - 쇼핑왕루이
+#
+# # 리얼커머스-다솔 - 쇼핑왕루이
 # 'https://story.kakao.com/ch/kinglouis',
-
+#
 # 'https://story.kakao.com/ch/healingtravel7',
-# #헬로메이트
+#헬로메이트
 # 'https://story.kakao.com/ch/100jubu', # ZeroDivisionError: division by zero 처리 필요
-# #초록별
+#cocker1102
 # 'https://story.kakao.com/ch/ssuujin',
 # #귀빈정
 # 'https://story.kakao.com/ch/wemother23',
@@ -119,7 +120,7 @@ urList = [
 # 'https://story.kakao.com/ch/diethunter',# 여기서 에러 한번 났었음
 # 'https://story.kakao.com/ch/sky01',
 # 'https://story.kakao.com/ch/ergolovers',
-'https://story.kakao.com/ch/mom79',
+# 'https://story.kakao.com/ch/mom79',
 # 'https://story.kakao.com/ch/ilike1',
 # 'https://story.kakao.com/ch/lovejw', # 혼자 돌려도 문제
 # 'https://story.kakao.com/ch/revedebebe',
@@ -129,12 +130,12 @@ urList = [
 # 'https://story.kakao.com/ch/koyalunch',
 # 'https://story.kakao.com/ch/09ssadagu',#todo 안돌아감
 # 'https://story.kakao.com/ch/dadoogmom',
-# 'https://story.kakao.com/ch/moms1',
-# 'https://story.kakao.com/ch/goldd2gt10',#todo 안돌아감
-# 'https://story.kakao.com/ch/cookiej',
-# 'https://story.kakao.com/ch/edutrend',
-# 'https://story.kakao.com/ch/0u82',
-# 'https://story.kakao.com/ch/5baby'
+'https://story.kakao.com/ch/moms1',
+'https://story.kakao.com/ch/goldd2gt10',#todo 안돌아감
+'https://story.kakao.com/ch/cookiej',
+'https://story.kakao.com/ch/edutrend',
+'https://story.kakao.com/ch/0u82',
+'https://story.kakao.com/ch/5baby'
 # 'https://story.kakao.com/ch/tongtong777' # 예외케이스있는듯 - 육아달인
 ## 'https://story.kakao.com/ch/15diet', # 여기 예외케이스 있는듯
 ];
