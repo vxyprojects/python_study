@@ -17,7 +17,7 @@ url2 = 'https://story.kakao.com/ch/sister7'
 #todo divide 제로  sumReply / iTotalRow 각각 변수 다 찍어보자 돌면서 글면 바로 알수있을것이다
 urList = [
 # 'https://story.kakao.com/ch/smart_0369',
-# 'https://story.kakao.com/ch/ggogga7', #광주업체
+'https://story.kakao.com/ch/ggogga7', #광주업체
 # 'https://story.kakao.com/ch/timesale24', #와우벤처스
 # 'https://story.kakao.com/ch/tongknsale2', #여기 잘가르쳐줌
 # 'https://story.kakao.com/ch/mombanchan',
@@ -121,7 +121,7 @@ urList = [
 # 'https://story.kakao.com/ch/diethunter',# 여기서 에러 한번 났었음
 # 'https://story.kakao.com/ch/sky01',
 # 'https://story.kakao.com/ch/ergolovers',
-'https://story.kakao.com/ch/mom79',
+# 'https://story.kakao.com/ch/mom79',
 # 'https://story.kakao.com/ch/ilike1',
 # 'https://story.kakao.com/ch/lovejw', # 혼자 돌려도 문제
 # 'https://story.kakao.com/ch/revedebebe',
