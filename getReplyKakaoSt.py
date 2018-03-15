@@ -11,6 +11,8 @@ import math
 import datetime
 import re
 import os;
+import chardet
+
 
 
 class ksCrawling:
@@ -36,7 +38,7 @@ class ksCrawling:
     def scrollDown(self ,checkIdex):
 
         idx = 0;
-        #디폴트가  5번인데
+        # 디폴트가  5번인데
         while True:
             aReturnRows = [];
             self.d.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -47,12 +49,12 @@ class ksCrawling:
             if idx == checkIdex:
                 # print(idx);
                 break
-        # return np.arange(0.0, self.endTime, self.sampleTime)
 
 
     def get_set_CrawlingData(self):
         #html 이 뿌리기전에 아래가 돌아가서 문제
-        time.sleep(2)
+        # time.sleep(3)
+        time.sleep(5)
         soup = BeautifulSoup(self.d.page_source, "html.parser")
 
         g_data = soup.find_all("div", {"class": "_activityBody "})
@@ -75,7 +77,8 @@ class ksCrawling:
                 #구매링크 작업
                 payLinkCount = ''
                 #원래는 100으로함
-                if onerow_content[0].text.strip()[0:300].find('goo.gl') is not -1:
+                # if onerow_content[0].text.strip()[0:300].find('goo.gl') is not -1:
+                if onerow_content[0].text.strip()[0:700].find('goo.gl') is not -1:
                     #todo https:// 가 있는케이스
                     #todo    없는 케이스
                     #regex = re.compile(r'^(https?):\/\/goo.gl\/[A-Za-z0-9_\-]+')
@@ -86,7 +89,8 @@ class ksCrawling:
                     # regex = re.compile(r'(https?:\/\/)goo.gl\/[A-Za-z0-9_\-]+')  # 먹히네
                     # regex = re.compile(r'https?:\/\/goo\.gl\/\w{6,}')
                     regex = re.compile(r'goo.gl\/[A-Za-z0-9_\-]+')  # 먹히네
-                    payment_url = regex.search(onerow_content[0].text.strip()[0:250])
+                    # payment_url = regex.search(onerow_content[0].text.strip()[0:250])
+                    payment_url = regex.search(onerow_content[0].text.strip()[0:700])
                     # print(payment_url);
                     if payment_url is not None:
                         payment_url=payment_url[0].replace("https", "")
@@ -144,7 +148,24 @@ class ksCrawling:
             onerow_reply = onerow_reply[0].text.strip()
             dOneRow['product_reg_date'] = oneRowdate;
             dOneRow['product_name'] = onerow_title;
+
+            #todo 인코딩 확인 해야하는 부분
+            # encoding = chardet.detect(dOneRow['product_name'])
+            # # print(encoding);
+            # print(encoding['encoding'])
+            #
+            # # if isinstance(dOneRow['product_name'], str):
+            # #     print ("ordinary string")
+            # # elif isinstance(dOneRow['product_name'], ):
+            # #     print
+            # #     "unicode string"
+            # # else:
+            # #     print
+            # #     "not a string"
+            #todo 꾸미고팡 땜에 추가한것
+            dOneRow['product_name'] = dOneRow['product_name'].replace("[얇은 종아리를 위한 종아리 붓기 빼는 스트레칭] ", "")
             dOneRow['proudct_reply_count'] = len(onerow_reply) == 0 and '0' or onerow_reply;
+            # print(dOneRow);
             self.lResult.append(dOneRow)
 
         # print(self.lResult);
